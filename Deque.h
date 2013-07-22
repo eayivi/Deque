@@ -386,15 +386,23 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @param lhs a const_iterator reference
+                 * @param rhs a const_iterator reference
+                 * @return a bool
+                 * checks to see if two const_iterators are equal to each other
                  */
                 friend bool operator == (const const_iterator& lhs, const const_iterator& rhs) {
-                    // <your code>
-                    return true;
+                    if (lhs.p != rhs.p)
+                        return false;
+                    else
+                        return true;
                 }
 
                 /**
-                 * <your documentation>
+                 * @param lhs a const_iterator reference
+                 * @param rhs a const_iterator reference
+                 * @return a bool
+                 * checks to see if two const_iterators are not equal to each other
                  */
                 friend bool operator != (const const_iterator& lhs, const const_iterator& rhs) {
                     return !(lhs == rhs);
@@ -405,7 +413,10 @@ class MyDeque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * @param lhs a const_iterator
+                 * @param rhs a difference_type
+                 * @return a const_iterator
+                 * increments a const_iterator by rhs
                  */
                 friend const_iterator operator + (const_iterator lhs, difference_type rhs) {
                     return lhs += rhs;
@@ -416,7 +427,10 @@ class MyDeque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * @param lhs a const_iterator
+                 * @param rhs a difference_type
+                 * @return a const_iterator
+                 * decrements a const_iterator by rhs
                  */
                 friend const_iterator operator - (const_iterator lhs, difference_type rhs) {
                     return lhs -= rhs;
@@ -427,7 +441,7 @@ class MyDeque {
                 // data
                 // ----
 
-                // <your data>
+                pointer p;
 
             private:
                 // -----
@@ -445,10 +459,11 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @param x a pointer passed by value
+                 * @return a new const_iterator
+                 * constructs a new const_iterator pointing to an element's address
                  */
-                const_iterator (/* <your arguments> */) {
-                    // <your code>
+                const_iterator (pointer x) : p(x) {
                     assert(valid());
                 }
 
@@ -462,13 +477,11 @@ class MyDeque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * @return a reference to the element being pointed to
+                 * dereferences a const_iterator to access its data
                  */
                 reference operator * () const {
-                    // <your code>
-                    // dummy is just to be able to compile the skeleton, remove it
-                    static value_type dummy;
-                    return dummy;
+                    return *(*this->p);
                 }
 
                 // -----------
@@ -476,7 +489,8 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @return a pointer to an element
+                 * gives the address a const_iterator points to
                  */
                 pointer operator -> () const {
                     return &**this;
@@ -487,16 +501,18 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @return a const_iterator reference
+                 * increments a const_iterator by one
                  */
                 const_iterator& operator ++ () {
-                    // <your code>
+                    ++(*this->p);
                     assert(valid());
                     return *this;
                 }
 
                 /**
-                 * <your documentation>
+                 * @return a const_iterator
+                 * gives a copy of a const_iterator and increments the original by one
                  */
                 const_iterator operator ++ (int) {
                     const_iterator x = *this;
@@ -510,16 +526,18 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @return a const_iterator reference
+                 * decrements a const_iterator by one
                  */
                 const_iterator& operator -- () {
-                    // <your code>
+                    --(*this->p);
                     assert(valid());
                     return *this;
                 }
 
                 /**
-                 * <your documentation>
+                 * @return a const_iterator
+                 * gives a copy of a const_iterator and decrements the original by one
                  */
                 const_iterator operator -- (int) {
                     const_iterator x = *this;
@@ -533,10 +551,12 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @param d a difference_type
+                 * @return a const_iterator reference
+                 * increments a const_iterator by d
                  */
-                const_iterator& operator += (difference_type) {
-                    // <your code>
+                const_iterator& operator += (difference_type d) {
+                    (*this->p) += d;
                     assert(valid());
                     return *this;
                 }
@@ -546,10 +566,12 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @param d a difference_type
+                 * @return a const_iterator reference
+                 * decrements a const_iterator by d
                  */
-                const_iterator& operator -= (difference_type) {
-                    // <your code>
+                const_iterator& operator -= (difference_type d) {
+                    (*this->p) -= d;
                     assert(valid());
                     return *this;
                 }
