@@ -173,15 +173,23 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @param lhs an iterator reference
+                 * @param rhs an iterator reference
+                 * @return a bool
+                 * checks to see if two iterators are equal to each other
                  */
                 friend bool operator == (const iterator& lhs, const iterator& rhs) {
-                    // <your code>
-                    return true;
+                    if (lhs.p != rhs.p)
+                        return false;
+                    else
+                        return true;
                 }
 
                 /**
-                 * <your documentation>
+                 * @param lhs an iterator reference
+                 * @param rhs an iterator reference
+                 * @return a bool
+                 * checks to see if two iterators are not equal to each other
                  */
                 friend bool operator != (const iterator& lhs, const iterator& rhs) {
                     return !(lhs == rhs);
@@ -192,7 +200,10 @@ class MyDeque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * @param lhs an iterator
+                 * @param rhs a difference_type
+                 * @return an iterator
+                 * increments an iterator by rhs
                  */
                 friend iterator operator + (iterator lhs, difference_type rhs) {
                     return lhs += rhs;
@@ -203,7 +214,10 @@ class MyDeque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * @param lhs an iterator
+                 * @param rhs a difference_type
+                 * @return an iterator
+                 * decrements an iterator by rhs
                  */
                 friend iterator operator - (iterator lhs, difference_type rhs) {
                     return lhs -= rhs;
@@ -214,7 +228,7 @@ class MyDeque {
                 // data
                 // ----
 
-                // <your data>
+                pointer p;
 
             private:
                 // -----
@@ -232,10 +246,11 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @param x a pointer passed by value
+                 * @return a new iterator
+                 * constructs a new iterator pointing to an element's address
                  */
-                iterator (/* <your arguments> */) {
-                    // <your code>
+                iterator (pointer x) : p(x) {
                     assert(valid());
                 }
 
@@ -249,13 +264,11 @@ class MyDeque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * @return a reference to the element being pointed to
+                 * dereferences an iterator to access its data
                  */
                 reference operator * () const {
-                    // <your code>
-                    // dummy is just to be able to compile the skeleton, remove it
-                    static value_type dummy;
-                    return dummy;
+                    return *(*this->p);
                 }
 
                 // -----------
@@ -263,7 +276,8 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @return a pointer to an element
+                 * gives the address an iterator points to
                  */
                 pointer operator -> () const {
                     return &**this;
@@ -274,16 +288,18 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @return an iterator reference
+                 * increments an iterator by one
                  */
                 iterator& operator ++ () {
-                    // <your code>
+                    ++(*this->p);
                     assert(valid());
                     return *this;
                 }
 
                 /**
-                 * <your documentation>
+                 * @return an iterator
+                 * gives a copy of an iterator and increments the original by one
                  */
                 iterator operator ++ (int) {
                     iterator x = *this;
@@ -297,16 +313,18 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @return an iterator reference
+                 * decrements an iterator by one
                  */
                 iterator& operator -- () {
-                    // <your code>
+                    --(*this->p);
                     assert(valid());
                     return *this;
                 }
 
                 /**
-                 * <your documentation>
+                 * @return an iterator
+                 * gives a copy of an iterator and decrements the original by one
                  */
                 iterator operator -- (int) {
                     iterator x = *this;
@@ -320,10 +338,12 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @param d a difference_type
+                 * @return an iterator reference
+                 * increments an iterator by d
                  */
                 iterator& operator += (difference_type d) {
-                    // <your code>
+                    (*this->p) += d;
                     assert(valid());
                     return *this;
                 }
@@ -333,10 +353,12 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * @param d a difference_type
+                 * @return an iterator reference
+                 * decrements an iterator by d
                  */
                 iterator& operator -= (difference_type d) {
-                    // <your code>
+                    (*this->p) -= d;
                     assert(valid());
                     return *this;}
         };
