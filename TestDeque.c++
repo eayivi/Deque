@@ -43,17 +43,272 @@ struct TestDeque : CppUnit::TestFixture {
     // size
     // ----
 
-    void test_size () {
+    void test_size_1 () {
         const C x;
         CPPUNIT_ASSERT(x.size() == 0);
     }
+    
+    void test_size_2 () {
+        const C x(10);
+        CPPUNIT_ASSERT(x.size() == 10);
+    }
+    
+    void test_size_3 () {
+        const C x(100);
+        CPPUNIT_ASSERT(x.size() != 10);
+    }
+    
+    // ---
+    // ==
+    // ---
+    
+    void test_equal_1 () {
+        const C x(10, 5);
+        const C y(10, 5);
+        
+        CPPUNIT_ASSERT(x == y);
+    }
+    
+    void test_equal_2 () {
+        const C x(10, 5);
+        
+        CPPUNIT_ASSERT(x == x);
+    }
+    
+    void test_equal_3 () {
+        const C x(10);
+        const C y(10);
+        
+        CPPUNIT_ASSERT(x == y);
+    }
+    
+    // ---
+    //  <
+    // ---
+    
+    void test_less_than_1 () {
+        const C x;
+        const C y(1, 5);
+        
+        CPPUNIT_TEST(x < y);
+    }
+    
+    void test_less_than_2 () {
+        const C x(1, 5);
+        const C y;
+        
+        CPPUNIT_TEST(!(x < y));
+    }
+    
+    void test_less_than_3 () {
+        const C x(10, 5);
+        const C y(5, 10);
+        
+        CPPUNIT_TEST(x < y);
+    }
+    
+    // ---
+    //  = 
+    // ---
+    
+    void test_assignment_1 () {
+        C x;
+        const C y(10, 10);
+        
+        x = y;
+        CPPUNIT_ASSERT(x.size() == 10);
+        CPPUNIT_ASSERT(x == y);
+    }
+    
+    void test_assignment_2 () {
+        C x(5, 10);
+        const C y(10, 10);
+        
+        x = y;
+        CPPUNIT_ASSERT(x.size() != 5);
+        CPPUNIT_ASSERT(x == y);
+    }
+    
+    void test_assignment_3 () {
+        C x;
+        const C y;
+        y.push_back(1);
+        y.push_back(2);
+        y.push_back(3);
+        y.push_back(4);
+        
+        x = y;
+        CPPUNIT_ASSERT(x.size() == 4);
+        CPPUNIT_ASSERT(x == y);
+    }
+    
+    // ---
+    // []
+    // ---
+    
+    void test_index_1 () {
+        const C x(5, 5);
+        
+        CPPUNIT_ASSERT(x[3] == 5);
+    }
+    
+    void test_index_2 () {
+        C x;
+        x.push_back(1);
+        x.push_back(2);
+        x.push_back(3);
+        x.push_back(4);
+        
+        CPPUNIT_ASSERT(x[2] == 2);
+    }
+    
+    void test_index_3 () {
+        C x;
+        x.push_back(1);
+        x.push_back(2);
+        x.push_back(3);
+        x.push_back(4);
+        
+        CPPUNIT_ASSERT(x[3] == 3);
+        
+        x.pop_front();
+        
+        CPPUNIT_ASSERT(x[3] == 4);
+    }
+    
+    // ---
+    // at
+    // ---
+    
+    void test_at_1 () {
+        const C x(5, 5);
+        
+        CPPUNIT_ASSERT(x.at(3) == 5);
+    }
+    
+    void test_at_2 () {
+        C x;
+        x.push_back(1);
+        x.push_back(2);
+        x.push_back(3);
+        x.push_back(4);
+        
+        CPPUNIT_ASSERT(x.at(2) == 2);
+    }
+    
+    void test_at_3 () {
+        try {
+            const C x(10, 10);
+            x[11];
+            
+            CPPUNIT_ASSERT(false);
+        }
+        catch (std::out_of_range& e) {
+            CPPUNIT_ASSERT(strcmp(e.what(), "Index is out of range." ) == 0);
+        }
+    }
+    
+    // ----
+    // back
+    // ----
+    
+    void test_back_1 () {
+        const C x(5, 5);
+        
+        CPPUNIT_ASSERT(x.back() == 5);
+    }
+    
+    void test_back_2 () {
+        C x;
+        x.push_back(1);
+        x.push_back(2);
+        x.push_back(3);
+        x.push_back(4);
+        
+        CPPUNIT_ASSERT(x.back() == 4);
+    }
 
+    void test_back_3 () {
+        C x;
+        x.push_back(1);
+        x.push_back(2);
+        x.push_back(3);
+        x.push_back(4);
+        
+        CPPUNIT_ASSERT(x.back() == 4);
+        
+        x.pop_back();
+        
+        CPPUNIT_ASSERT(x.back() == 3);
+    }
+    
+    // -----
+    // begin
+    // -----
+    
+    void test_begin_1 () {
+        const C x(5, 5);
+        
+        C::iterator i = C.begin(); 
+        
+        CPPUNIT_ASSERT(*i == 5);
+    }
+    
+    void test_begin_2 () {
+        C x;
+        x.push_back(1);
+        x.push_back(2);
+        x.push_back(3);
+        x.push_back(4);
+        
+        C::iterator i = C.begin(); 
+        
+        CPPUNIT_ASSERT(*i == 1);
+    }
+        
+    void test_begin_3 () {
+        C x;
+        x.push_back(1);
+        x.push_back(2);
+        x.push_back(3);
+        x.push_back(4);
+        
+        x.pop_front();
+        
+        C::iterator i = C.begin(); 
+        
+        CPPUNIT_ASSERT(*i == 2);
+    }
+    
     // -----
     // suite
     // -----
 
     CPPUNIT_TEST_SUITE(TestDeque);
-    CPPUNIT_TEST(test_size);
+    CPPUNIT_TEST(test_size_1);
+    CPPUNIT_TEST(test_size_2);
+    CPPUNIT_TEST(test_size_3);
+    CPPUNIT_TEST(test_equal_1);
+    CPPUNIT_TEST(test_equal_2);
+    CPPUNIT_TEST(test_equal_3);
+    CPPUNIT_TEST(test_less_than_1);
+    CPPUNIT_TEST(test_less_than_2);
+    CPPUNIT_TEST(test_less_than_3);
+    CPPUNIT_TEST(test_assignment_1);
+    CPPUNIT_TEST(test_assignment_2);
+    CPPUNIT_TEST(test_assignment_3);
+    CPPUNIT_TEST(test_index_1);
+    CPPUNIT_TEST(test_index_2);
+    CPPUNIT_TEST(test_index_3);
+    CPPUNIT_TEST(test_at_1);
+    CPPUNIT_TEST(test_at_2);
+    CPPUNIT_TEST(test_at_3);
+    CPPUNIT_TEST(test_back_1);
+    CPPUNIT_TEST(test_back_2);
+    CPPUNIT_TEST(test_back_3);
+    CPPUNIT_TEST(test_begin_1);
+    CPPUNIT_TEST(test_begin_2);
+    CPPUNIT_TEST(test_begin_3);
     CPPUNIT_TEST_SUITE_END();
 };
 
