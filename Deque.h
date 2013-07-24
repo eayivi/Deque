@@ -6,6 +6,7 @@
 
 #ifndef Deque_h
 #define Deque_h
+#define BLOCK_WIDTH 20
 
 // --------
 // includes
@@ -92,30 +93,34 @@ class MyDeque {
         // typedefs
         // --------
 
-        typedef A                                        allocator_type;
-        typedef typename allocator_type::value_type      value_type;
+        typedef A                                                   allocator_type;
+        typedef typename allocator_type::value_type                 value_type;
 
-        typedef typename allocator_type::size_type       size_type;
-        typedef typename allocator_type::difference_type difference_type;
+        typedef typename allocator_type::size_type                  size_type;
+        typedef typename allocator_type::difference_type            difference_type;
 
-        typedef typename allocator_type::pointer         pointer;
-        typedef typename allocator_type::const_pointer   const_pointer;
+        typedef typename allocator_type::pointer                    pointer;
+        typedef typename allocator_type::const_pointer              const_pointer;
 
-        typedef typename allocator_type::reference       reference;
-        typedef typename allocator_type::const_reference const_reference;
-
+        typedef typename allocator_type::reference                  reference;
+        typedef typename allocator_type::const_reference            const_reference;
+        
+        typedef typename allocator_type::template rebind<T*>::other p_allocator_type;
+        typedef typename p_allocator_type::pointer                  p_pointer;
+        
     public:
         // -----------
         // operator ==
         // -----------
 
         /**
-         * <your documentation>
+         * @param lhs a MyDeque reference
+         * @param rhs a MyDeque reference
+         * @return a bool
+         * checks if two MyDeque objects are equal to each other
          */
         friend bool operator == (const MyDeque& lhs, const MyDeque& rhs) {
-            // <your code>
-            // you must use std::equal()
-            return true;
+            return (lhs.size() == rhs.size()) && std::equal(lhs.begin(), lhs.end(), rhs.begin());
         }
 
         // ----------
@@ -123,12 +128,13 @@ class MyDeque {
         // ----------
 
         /**
-         * <your documentation>
+         * @param lhs a MyDeque reference
+         * @param rhs a MyDeque reference
+         * @return a bool
+         * checks if a MyDeque object is less than the other
          */
         friend bool operator < (const MyDeque& lhs, const MyDeque& rhs) {
-            // <your code>
-            // you must use std::lexicographical_compare()
-            return true;
+            return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
 
     private:
@@ -137,8 +143,18 @@ class MyDeque {
         // ----
 
         allocator_type _a;
+        p_allocator_type _p;
 
-        // <your data>
+        p_pointer _top;
+        p_pointer _bottom;
+        
+        pointer _b;
+        pointer _e;
+        
+        pointer _beg_total;     // total allocated space
+        pointer _end_total;
+        pointer _beg_used;      // total used space
+        pointer _end_used;
 
     private:
         // -----
@@ -146,8 +162,8 @@ class MyDeque {
         // -----
 
         bool valid () const {
-            // <your code>
-            return true;
+            return (!_top && !_bottom && !_b && !_e && !_beg_total && !_end_total && !_beg_used && !_end_used) || 
+                    ((_top <= _bottom) && (_b <= _e) && (_beg_total <= _beg_used) && (_end_used <= _end_total));
         }
 
     public:
@@ -583,18 +599,45 @@ class MyDeque {
         // ------------
 
         /**
-         * <your documentation>
+         * @param a an allocator_type reference
+         * @return a MyDeque object
+         * makes a new MyDeque object from an allocator_type
          */
-        explicit MyDeque (const allocator_type& a = allocator_type()) {
-            // <your code>
+        explicit MyDeque (const allocator_type& a = allocator_type()) :
+                _a (a), _p () {
+            _top = _bottom = 0;
+            _b = _e = 0;
+            _beg_total = _end_total = _beg_used = _end_used = 0;
+            
             assert(valid());
         }
 
         /**
-         * <your documentation>
+         * @param s a size_type
+         * @param v a const_reference
+         * @param a an allocator_type reference
+         * @return a MyDeque object
+         * makes a new MyDeque object of size s and fills it with value v
          */
-        explicit MyDeque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) {
-            // <your code>
+        explicit MyDeque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) :
+                _a (a), _p () {
+            size_type num_blocks = s / BLOCK_WIDTH;
+            if (s % BLOCK_WIDTH) {
+                ++num_blocks;
+            }
+                        
+            _top = _p.allocate(2 * num_blocks);
+            _bottom = _top + num_blocks;
+            
+            p_pointer temp = _top;
+            while (_top != _bottom) {
+                *_top = a.allocate(BLOCK_WIDTH);
+                ++_top;
+            }
+            _top = temp;
+            
+            
+            
             assert(valid());
         }
 
