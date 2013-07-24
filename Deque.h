@@ -151,6 +151,8 @@ class MyDeque {
         pointer _b;
         pointer _e;
         
+        size_type block_size;
+        
         pointer _beg_total;     // total allocated space
         pointer _end_total;
         pointer _beg_used;      // total used space
@@ -162,8 +164,8 @@ class MyDeque {
         // -----
 
         bool valid () const {
-            return (!_top && !_bottom && !_b && !_e && !_beg_total && !_end_total && !_beg_used && !_end_used) || 
-                    ((_top <= _bottom) && (_b <= _e) && (_beg_total <= _beg_used) && (_end_used <= _end_total));
+            return (!_top && !_bottom && !_b && !_e /*&& !_beg_total && !_end_total && !_beg_used && !_end_used*/) || 
+                    ((_top <= _bottom) && (_b <= _e) /*&& (_beg_total <= _beg_used) && (_end_used <= _end_total)*/);
         }
 
     public:
@@ -608,6 +610,7 @@ class MyDeque {
             _top = _bottom = 0;
             _b = _e = 0;
             _beg_total = _end_total = _beg_used = _end_used = 0;
+            block_size = 0;
             
             assert(valid());
         }
@@ -625,27 +628,53 @@ class MyDeque {
             if (s % BLOCK_WIDTH) {
                 ++num_blocks;
             }
+            block_size = num_blocks;
                         
             _top = _p.allocate(2 * num_blocks);
             _bottom = _top + num_blocks;
             
             p_pointer temp = _top;
             while (_top != _bottom) {
-                *_top = a.allocate(BLOCK_WIDTH);
+                *_top = _a.allocate(BLOCK_WIDTH);
                 ++_top;
             }
             _top = temp;
             
+            _b = _top[0];
             
+            size_type remainder = BLOCK_WIDTH;
+            if (s % BLOCK_WIDTH != 0) {
+                remainder -= BLOCK_WIDTH * num_blocks - s;
+            }
+            _e = _top[num_blocks - 1] + remainder;
+            
+            //uninitialized_fill(_a, begin(), end(), v);
             
             assert(valid());
         }
 
         /**
-         * <your documentation>
+         * @param that a MyDeque reference
+         * @return a MyDeque object
+         * makes a new MyDeque object with the contents of another MyDeque object
          */
-        MyDeque (const MyDeque& that) {
-            // <your code>
+        MyDeque (const MyDeque& that) :
+                _a (that._a), _p (that._p) {
+            _top = _p.allocate(that.block_size);
+            _bottom = _top + that.block_size;
+            
+            p_pointer temp = _top;
+            while (_top != _bottom) {
+                *_top = _a.allocate(BLOCK_WIDTH);
+                ++_top;
+            }
+            _top = temp;
+            
+            _b = that._b;
+            _e = that._e;
+            
+            //uninitialized_copy(_a, that.begin(), that.end(), begin());
+                    
             assert(valid());
         }
 
@@ -654,10 +683,22 @@ class MyDeque {
         // ----------
 
         /**
-         * <your documentation>
+         * destroys a MyDeque object
          */
         ~MyDeque () {
-            // <your code>
+            if (_top) {
+                clear();
+                
+                p_pointer temp = _top;
+                while (_top != _bottom) {
+                    _a.deallocate(*_top, BLOCK_WIDTH);
+                    ++_top;
+                }
+                _top = temp;
+                
+                _p.deallocate(_top, block_size);
+            }
+            
             assert(valid());
         }
 
@@ -666,12 +707,21 @@ class MyDeque {
         // ----------
 
         /**
-         * <your documentation>
+         * @param rhs a MyDeque reference
+         * @return a MyDeque reference
+         * assigns the contents of one MyDeque object to another
          */
         MyDeque& operator = (const MyDeque& rhs) {
-            // <your code>
+            /*if (this == &rhs) {
+                return *this;
+            }
+            if (rhs.size() == size()) {
+                std::copy(rhs.begin(), rhs.end(), begin());
+            }
+            else if ()
+            
             assert(valid());
-            return *this;
+            return *this;*/
         }
 
         // -----------
@@ -679,7 +729,9 @@ class MyDeque {
         // -----------
 
         /**
-         * <your documentation>
+         * @param index a size_type
+         * @return a reference
+         * gives the element a MyDeque contains at index
          */
         reference operator [] (size_type index) {
             // <your code>
@@ -689,7 +741,9 @@ class MyDeque {
         }
 
         /**
-         * <your documentation>
+         * @param index a size_type
+         * @return a const_reference
+         * gives the element a MyDeque contains at index
          */
         const_reference operator [] (size_type index) const {
             return const_cast<MyDeque*>(this)->operator[](index);
@@ -700,17 +754,22 @@ class MyDeque {
         // --
 
         /**
-         * <your documentation>
+         * @param index a size_type
+         * @return a reference
+         * @throws out_of_range if (index < 0) or (index >= size())
+         * gives the element a MyDeque contains at index
          */
         reference at (size_type index) {
-            // <your code>
-            // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
-            return dummy;
+            if ( (index < 0) || (index >= size()) ) {
+                throw std::out_of_range("ERROR: invalid index!");
+            }
+            return (*this)[index];
         }
 
         /**
-         * <your documentation>
+         * @param index a size_type
+         * @return a const_reference
+         * gives the element a MyDeque contains at index
          */
         const_reference at (size_type index) const {
             return const_cast<MyDeque*>(this)->at(index);
@@ -904,11 +963,17 @@ class MyDeque {
         // ----
 
         /**
-         * <your documentation>
+         * @return a size_type
+         * gives current number of elements in a MyDeque
          */
         size_type size () const {
-            // <your code>
-            return 0;
+            if (_top == 0) {
+                return 0;
+            }
+            
+            size_type offset = BLOCK_WIDTH - (_e - _top[block_size-1]);
+            size_type result = block_size * BLOCK_WIDTH - offset;
+            return result;
         }
 
         // ----
