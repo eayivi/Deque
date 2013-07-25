@@ -148,6 +148,9 @@ class MyDeque {
         p_pointer _top;
         p_pointer _bottom;
         
+        size_type _u_top;
+        size_type _u_bottom;
+        
         pointer _b;
         pointer _e;
         
@@ -246,7 +249,9 @@ class MyDeque {
                 // data
                 // ----
 
-                pointer p;
+                MyDeque*  p;
+                size_type i;
+                size_type j;
 
             private:
                 // -----
@@ -254,8 +259,7 @@ class MyDeque {
                 // -----
 
                 bool valid () const {
-                    // <your code>
-                    return true;
+                    return i >= 0 && j >= 0;
                 }
 
             public:
@@ -264,11 +268,13 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * @param x a pointer passed by value
+                 * @param x a MyDeque pointer
                  * @return a new iterator
                  * constructs a new iterator pointing to an element's address
                  */
-                iterator (pointer x) : p(x) {
+                iterator (MyDeque* x, size_type y, size_type z) : p(x) {
+                    i = y;
+                    j = z;
                     assert(valid());
                 }
 
@@ -610,7 +616,7 @@ class MyDeque {
             _top = _bottom = 0;
             _b = _e = 0;
             _beg_total = _end_total = _beg_used = _end_used = 0;
-            block_size = 0;
+            block_size = _u_top = _u_bottom = 0;
             
             assert(valid());
         }
@@ -648,6 +654,9 @@ class MyDeque {
             }
             _e = _top[num_blocks - 1] + remainder;
             
+            _u_top = 0;
+            _u_bottom = num_blocks - 1;
+            
             //uninitialized_fill(_a, begin(), end(), v);
             
             assert(valid());
@@ -672,6 +681,9 @@ class MyDeque {
             
             _b = that._b;
             _e = that._e;
+            
+            _u_top = that._u_top;
+            _u_bottom = that._u_bottom;
             
             //uninitialized_copy(_a, that.begin(), that.end(), begin());
                     
@@ -747,10 +759,26 @@ class MyDeque {
          * gives the element a MyDeque contains at index
          */
         reference operator [] (size_type index) {
-            // <your code>
-            // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
-            return dummy;
+//            // <your code>
+//            // dummy is just to be able to compile the skeleton, remove it
+//            static value_type dummy;
+//            return dummy;
+            if (index == 0) {
+                return *_b;
+            }
+            
+            size_type temp = _u_top;
+            reference result;
+
+            if ((_b - _top[_u_top]) + index > BLOCK_WIDTH) {
+                //while ()
+                result = _top[++temp];
+            }
+            else {
+                result = *(_b + index);
+            }
+            
+            return result;
         }
 
         /**
@@ -984,7 +1012,7 @@ class MyDeque {
                 return 0;
             }
             
-            size_type offset = BLOCK_WIDTH - (_e - _top[block_size-1]);
+            size_type offset = BLOCK_WIDTH - (_e - _top[_u_bottom]);
             size_type result = block_size * BLOCK_WIDTH - offset;
             return result;
         }
