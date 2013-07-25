@@ -804,7 +804,7 @@ class MyDeque {
             }
             else if (rhs.size() <= capacity) {
                 std::copy(rhs.begin(), rhs.begin() + size(), begin());
-                _e = uninitialized_copy(_a, rhs.begin() + size(), rhs.end(), end());}
+                _e = &*uninitialized_copy(_a, rhs.begin() + size(), rhs.end(), end());}
             else {
                 clear();
                 MyDeque copy(rhs.size());
@@ -990,6 +990,13 @@ class MyDeque {
          */
         iterator erase (iterator p) {
             // <your code>
+            if (p == end() - 1) {
+                pop_back();
+            }
+            else {
+                std::copy(p + 1, end(), p);
+                resize(size() - 1);
+            }
             
             assert(valid());
             return iterator();
@@ -1000,17 +1007,18 @@ class MyDeque {
         // -----
 
         /**
-         * <your documentation>
+         * @return a reference
+         * gives a reference to the first element in a MyDeque container
          */
         reference front () {
             // <your code>
-            // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
-            return dummy;
+            assert(!empty());
+            return *begin();;
         }
 
         /**
-         * <your documentation>
+         * @return a const_reference
+         * gives a const_reference to the first element in a MyDeque container
          */
         const_reference front () const {
             return const_cast<MyDeque*>(this)->front();
@@ -1021,10 +1029,22 @@ class MyDeque {
         // ------
 
         /**
-         * <your documentation>
+         * @param p an iterator
+         * @param v a const_reference
+         * @return an iterator
+         * adds an element of value v to the MyDeque at position pointed to by p
          */
-        iterator insert (iterator, const_reference) {
+        iterator insert (iterator p, const_reference v) {
             // <your code>
+            if (p == end()) {
+                push_back(v);
+            }
+            else {
+                resize(size()+1);
+		std::copy(p, end(), p+1);
+		*p = v;
+            }
+            
             assert(valid());
             return iterator();
         }
@@ -1074,10 +1094,28 @@ class MyDeque {
         // ------
 
         /**
-         * <your documentation>
+         * @param s a size_type
+         * @param v a const_reference
+         * resizes a MyDeque so it contains s elements
          */
         void resize (size_type s, const_reference v = value_type()) {
             // <your code>
+            if (s == size()) {
+                return ;
+            }
+            
+            size_type capacity = block_size * BLOCK_WIDTH;
+            if ( s < size()) {
+                _e = &*destroy(_a, begin() + s, end());
+            }
+            else if (s <= capacity) {
+                _e = &*uninitialized_fill(_a, end(), begin() + s, v);
+            }
+            else {
+                MyDeque copy(s, v);
+                swap(copy);
+            }
+            
             assert(valid());
         }
 
@@ -1105,10 +1143,26 @@ class MyDeque {
         // ----
 
         /**
-         * <your documentation>
+         * @param rhs a MyDeque reference
+         * Switches the contents of two MyDeque objects
          */
-        void swap (MyDeque&) {
+        void swap (MyDeque& rhs) {
             // <your code>
+            if (_a == rhs._a && _p == rhs._p) {
+                std::swap(_top, rhs._top);
+                std::swap(_bottom, rhs._bottom);
+                std::swap(_u_top, rhs._u_top);
+                std::swap(_u_bottom, rhs._u_bottom);
+                std::swap(block_size, rhs.block_size);
+                std::swap(_b, rhs._b);
+                std::swap(_e, rhs._e);
+            }
+            else {
+                MyDeque x(*this);
+                *this = rhs;
+                rhs = x;
+            }
+            
             assert(valid());
         }
 };
