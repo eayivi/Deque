@@ -31,9 +31,9 @@ template <typename C>
 class IntTest : public testing::Test {
 	protected:
 		C x;
-		C y;
+	//	C y;
 
-		IntTest(): x(0), y(0){}
+		IntTest(): x(0){};//, y(0){}
 };
 typedef testing::Types<std::deque<int>, MyDeque<int> > IntTypes;	// we are typedef-ing this line so we can pass it all
 TYPED_TEST_CASE(IntTest, IntTypes);		// without the commas appearing as separate arguments
@@ -63,26 +63,26 @@ TYPED_TEST(IntTest, size_2) {
 	ASSERT_TRUE(this->x.size() == 0);
 }
 
-TYPED_TEST(IntTest, size_3) {
-	this->x.push_back(5);
-	ASSERT_TRUE(this->x.size() == 1);
-}
+// TYPED_TEST(IntTest, size_3) {
+// 	this->x.push_back(5);
+// 	ASSERT_TRUE(this->x.size() == 1);
+// }
 
-TYPED_TEST(IntTest, size_4) {
-	this->x.push_back(5);
-	this->x.push_back(5);
-	ASSERT_TRUE(this->x.size() == 2);
-}
+// TYPED_TEST(IntTest, size_4) {
+// 	this->x.push_back(5);
+// 	this->x.push_back(5);
+// 	ASSERT_TRUE(this->x.size() == 2);
+// }
 
-TYPED_TEST(IntTest, size_5) {
-	this->x.push_back(0);
-	this->x.push_back(2);
-	this->x.push_back(0);
-	ASSERT_TRUE(this->x.size() == 3);
-}
+// TYPED_TEST(IntTest, size_5) {
+// 	this->x.push_back(0);
+// 	this->x.push_back(2);
+// 	this->x.push_back(0);
+// 	ASSERT_TRUE(this->x.size() == 3);
+// }
 
-TYPED_TEST(StringTest, size_4) {
-	this->x.push_back("abc");
-	this->x.push_front("tuv");
-	ASSERT_TRUE(this->x.size() == 2);
-}
+// TYPED_TEST(StringTest, size_6) {
+// 	this->x.push_back("abc");
+// 	this->x.push_front("tuv");
+// 	ASSERT_TRUE(this->x.size() == 2);
+// }
