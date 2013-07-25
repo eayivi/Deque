@@ -712,16 +712,29 @@ class MyDeque {
          * assigns the contents of one MyDeque object to another
          */
         MyDeque& operator = (const MyDeque& rhs) {
-            /*if (this == &rhs) {
+            if (this == &rhs) {
                 return *this;
             }
+            
+            size_type capacity = block_size * BLOCK_WIDTH;
             if (rhs.size() == size()) {
                 std::copy(rhs.begin(), rhs.end(), begin());
             }
-            else if ()
+            else if (rhs.size() < size()) {
+                std::copy(rhs.begin(), rhs.end(), begin());
+                resize(rhs.size());
+            }
+            else if (rhs.size() <= capacity) {
+                std::copy(rhs.begin(), rhs.begin() + size(), begin());
+                _e = uninitialized_copy(_a, rhs.begin() + size(), rhs.end(), end());}
+            else {
+                clear();
+                MyDeque copy(rhs.size());
+                swap(copy);
+            }
             
             assert(valid());
-            return *this;*/
+            return *this;
         }
 
         // -----------
