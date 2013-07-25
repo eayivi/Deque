@@ -73,7 +73,6 @@ BI uninitialized_fill (A& a, BI b, BI e, const U& v) {
         while (b != e) {
             a.construct(&*b, v);
             ++b;
-            std::cout << "HERE! \n";
         }
     }
     catch (...) {
@@ -146,13 +145,13 @@ class MyDeque {
         allocator_type _a;
         p_allocator_type _p;
 
-        p_pointer _top;
-        p_pointer _bottom;
+        p_pointer _top;         // Top of the outer container (beyond filled area)
+        p_pointer _bottom; 
         
-        size_type _u_top;
+        size_type _u_top;       //top of filled area in outer container
         size_type _u_bottom;
         
-        pointer _b;
+        pointer _b;             // beginning of filled area in inner container
         pointer _e;
         
         size_type block_size;
@@ -310,7 +309,7 @@ class MyDeque {
                  * increments an iterator by one
                  */
                 iterator& operator ++ () {
-                    if (&p->_top[i][j] == &p->_top[i][BLOCK_WIDTH]) {
+                    if (&p->_top[i][j] == &p->_top[i][BLOCK_WIDTH - 1]) {
                         ++i;
                         j = 0;
                     }
@@ -440,10 +439,7 @@ class MyDeque {
                  * checks to see if two const_iterators are equal to each other
                  */
                 friend bool operator == (const const_iterator& lhs, const const_iterator& rhs) {
-                    if (lhs.p != rhs.p)
-                        return false;
-                    else
-                        return true;
+                    return lhs.i == rhs.i && lhs.j == rhs.j;
                 }
 
                 /**
@@ -489,7 +485,9 @@ class MyDeque {
                 // data
                 // ----
 
-                pointer p;
+                const MyDeque*  p;
+                size_type i;
+                size_type j;
 
             private:
                 // -----
@@ -497,7 +495,7 @@ class MyDeque {
                 // -----
 
                 bool valid () const {
-                    // <your code>
+                    return i >= 0 && j >= 0;
                     return true;
                 }
 
@@ -507,11 +505,15 @@ class MyDeque {
                 // -----------
 
                 /**
-                 * @param x a pointer passed by value
+                 * @param x a MyDeque pointer
+                 * @param y a size_type
+                 * @param z a size_type
                  * @return a new const_iterator
                  * constructs a new const_iterator pointing to an element's address
                  */
-                const_iterator (pointer x) : p(x) {
+                const_iterator (const MyDeque* x, size_type y, size_type z) : p(x) {
+                    i = y;
+                    j = z;
                     assert(valid());
                 }
 
@@ -529,7 +531,7 @@ class MyDeque {
                  * dereferences a const_iterator to access its data
                  */
                 reference operator * () const {
-                    return *(*this->p);
+                    return p->_top[i][j];
                 }
 
                 // -----------
@@ -553,7 +555,14 @@ class MyDeque {
                  * increments a const_iterator by one
                  */
                 const_iterator& operator ++ () {
-                    ++(*this->p);
+                    if (&p->_top[i][j] == &p->_top[i][BLOCK_WIDTH - 1]) {
+                        ++i;
+                        j = 0;
+                    }
+                    else {
+                        ++j;
+                    }
+                    
                     assert(valid());
                     return *this;
                 }
@@ -578,7 +587,14 @@ class MyDeque {
                  * decrements a const_iterator by one
                  */
                 const_iterator& operator -- () {
-                    --(*this->p);
+                    if (&p->_top[i][j] == &p->_top[i][0]) {
+                        --i;
+                        j = BLOCK_WIDTH;
+                    }
+                    else {
+                        --j;
+                    }
+                    
                     assert(valid());
                     return *this;
                 }
@@ -604,7 +620,15 @@ class MyDeque {
                  * increments a const_iterator by d
                  */
                 const_iterator& operator += (difference_type d) {
-                    (*this->p) += d;
+                    if ( (p->_top[i][j] - p->_top[i][0]) + d > BLOCK_WIDTH ) {
+                        size_type block_jump = ( (p->_top[i][j] - p->_top[i][0]) + d) / BLOCK_WIDTH;
+                        i += block_jump;
+                        j = BLOCK_WIDTH * block_jump - d;
+                    }
+                    else {
+                        j += d;
+                    }
+                    
                     assert(valid());
                     return *this;
                 }
@@ -619,7 +643,15 @@ class MyDeque {
                  * decrements a const_iterator by d
                  */
                 const_iterator& operator -= (difference_type d) {
-                    (*this->p) -= d;
+                    if ( -(p->_top[i][j] - p->_top[i][0]) - d < 0 ) {
+                        size_type block_jump = ( -(p->_top[i][j] - p->_top[i][0]) - d) / BLOCK_WIDTH;
+                        i += block_jump;
+                        j = BLOCK_WIDTH * -block_jump - d + 1;
+                    }
+                    else {
+                        j -= d;
+                    }
+                    
                     assert(valid());
                     return *this;
                 }
@@ -694,6 +726,8 @@ class MyDeque {
                 _a (that._a), _p (that._p) {
             _top = _p.allocate(that.block_size);
             _bottom = _top + that.block_size;
+            
+            block_size = that.block_size;
             
             p_pointer temp = _top;
             while (_top != _bottom) {
@@ -787,7 +821,13 @@ class MyDeque {
 //            static value_type dummy;
 //            return dummy;
             
+            if (index == 0) {
+                return *_b;
+            }
+            
             reference result = *_b;
+            
+            std::cout << _b - _top[_u_top] << std::endl;
 
             if ((_b - _top[_u_top]) + index > BLOCK_WIDTH) {
                 size_type block_jump = ((_b - _top[_u_top]) + index) / BLOCK_WIDTH;
@@ -795,7 +835,7 @@ class MyDeque {
                 result = *(temp + (BLOCK_WIDTH * block_jump - index));
             }
             else {
-                result = *(_b + index);
+                result = *(_b + index - 1);
             }
             
             return result;
@@ -875,6 +915,7 @@ class MyDeque {
          * gives an const_iterator that points to the first element in a MyDeque
          */
         const_iterator begin () const {
+            std::cout << "CONST_BEGIN: " << _u_top << " " << _b - _top[_u_top] << std::endl;
             return const_iterator(this, _u_top, _b - _top[_u_top]);
         }
 
@@ -919,6 +960,7 @@ class MyDeque {
          * gives an const_iterator that points to the last element in a MyDeque
          */
         const_iterator end () const {
+            std::cout << "CONST_END: " << _u_bottom << " " << _e - _top[_u_bottom] - 1 << std::endl;
             return const_iterator(this, _u_bottom, _e - _top[_u_bottom] - 1);
         }
 
@@ -1036,6 +1078,7 @@ class MyDeque {
             
             size_type offset = BLOCK_WIDTH - (_e - _top[_u_bottom]);
             size_type result = block_size * BLOCK_WIDTH - offset;
+            std::cout << "SIZE: " << result << std::endl;
             return result;
         }
 
