@@ -285,7 +285,7 @@ class MyDeque {
                  * dereferences an iterator to access its data
                  */
                 reference operator * () const {
-                    return p->_top[i][j];
+                    return *(p->_top[i] + j);
                 }
 
                 // -----------
@@ -374,8 +374,8 @@ class MyDeque {
                  * increments an iterator by d
                  */
                 iterator& operator += (difference_type d) {
-                    if ( (p->_top[i][j] - p->_top[i][0]) + d > BLOCK_WIDTH ) {
-                        size_type block_jump = ( (p->_top[i][j] - p->_top[i][0]) + d) / BLOCK_WIDTH;
+                    if ( (&p->_top[i][j] - &p->_top[i][0]) + d > BLOCK_WIDTH ) {
+                        size_type block_jump = ( (&p->_top[i][j] - &p->_top[i][0]) + d) / BLOCK_WIDTH;
                         i += block_jump;
                         j = BLOCK_WIDTH * block_jump - d;
                     }
@@ -397,8 +397,8 @@ class MyDeque {
                  * decrements an iterator by d
                  */
                 iterator& operator -= (difference_type d) {
-                    if ( -(p->_top[i][j] - p->_top[i][0]) - d < 0 ) {
-                        size_type block_jump = ( -(p->_top[i][j] - p->_top[i][0]) - d) / BLOCK_WIDTH;
+                    if ( -(&p->_top[i][j] - &p->_top[i][0]) - d < 0 ) {
+                        size_type block_jump = ( -(&p->_top[i][j] - &p->_top[i][0]) - d) / BLOCK_WIDTH;
                         i += block_jump;
                         j = BLOCK_WIDTH * -block_jump - d + 1;
                     }
@@ -620,8 +620,8 @@ class MyDeque {
                  * increments a const_iterator by d
                  */
                 const_iterator& operator += (difference_type d) {
-                    if ( (p->_top[i][j] - p->_top[i][0]) + d > BLOCK_WIDTH ) {
-                        size_type block_jump = ( (p->_top[i][j] - p->_top[i][0]) + d) / BLOCK_WIDTH;
+                    if ( (&p->_top[i][j] - &p->_top[i][0]) + d > BLOCK_WIDTH ) {
+                        size_type block_jump = ( (&p->_top[i][j] - &p->_top[i][0]) + d) / BLOCK_WIDTH;
                         i += block_jump;
                         j = BLOCK_WIDTH * block_jump - d;
                     }
@@ -643,8 +643,8 @@ class MyDeque {
                  * decrements a const_iterator by d
                  */
                 const_iterator& operator -= (difference_type d) {
-                    if ( -(p->_top[i][j] - p->_top[i][0]) - d < 0 ) {
-                        size_type block_jump = ( -(p->_top[i][j] - p->_top[i][0]) - d) / BLOCK_WIDTH;
+                    if ( -(&p->_top[i][j] - &p->_top[i][0]) - d < 0 ) {
+                        size_type block_jump = ( -(&p->_top[i][j] - &p->_top[i][0]) - d) / BLOCK_WIDTH;
                         i += block_jump;
                         j = BLOCK_WIDTH * -block_jump - d + 1;
                     }
@@ -727,6 +727,9 @@ class MyDeque {
             _top = _p.allocate(that.block_size);
             _bottom = _top + that.block_size;
             
+            std::cout << "that._top: " << that._top << std::endl;
+            std::cout << "_top : " << _top << std::endl;
+            
             block_size = that.block_size;
             
             p_pointer temp = _top;
@@ -739,8 +742,14 @@ class MyDeque {
             _u_top = that._u_top;
             _u_bottom = that._u_bottom;
             
-            _b = that._b;
-            _e = that._e;
+            _b = _top[_u_top];
+            _e = _top[_u_bottom];
+            
+            std::cout << "that._top: " << that._top << std::endl;
+            std::cout << "_top : " << _top << std::endl;
+            
+            std::cout << "that._b: " << that._b << std::endl;
+            std::cout << "_b : " << _b << std::endl;
             
             uninitialized_copy(_a, that.begin(), that.end(), begin());
                     
@@ -879,17 +888,23 @@ class MyDeque {
         // ----
 
         /**
-         * <your documentation>
+         * @return a reference
+         * gives a reference to last element in the container
          */
         reference back () {
             // <your code>
             // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
-            return dummy;
+//            static value_type dummy;
+//            return dummy;
+            
+            assert(!empty());
+            
+            return *(end() - 1);
         }
 
         /**
-         * <your documentation>
+         * @return a const_reference
+         * gives a const_reference to last element in the container
          */
         const_reference back () const {
             return const_cast<MyDeque*>(this)->back();
@@ -922,10 +937,11 @@ class MyDeque {
         // -----
 
         /**
-         * <your documentation>
+         * removes all elements from MyDeque
          */
         void clear () {
             // <your code>
+            resize(0);
             assert(valid());
         }
 
@@ -934,7 +950,8 @@ class MyDeque {
         // -----
 
         /**
-         * <your documentation>
+         * @return a bool
+         * checks if a MyDeque is empty
          */
         bool empty () const {
             return !size();
@@ -967,10 +984,13 @@ class MyDeque {
         // -----
 
         /**
-         * <your documentation>
+         * @param p an iterator
+         * @return an iterator
+         * removes an element from the MyDeque at position pointed to by p
          */
-        iterator erase (iterator) {
+        iterator erase (iterator p) {
             // <your code>
+            
             assert(valid());
             return iterator();
         }

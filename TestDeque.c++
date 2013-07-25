@@ -44,19 +44,21 @@ struct TestDeque : CppUnit::TestFixture {
     // ----
 
     void test_size_1 () {
-        const C x(10000, 1);
-        std::cout << "[]: " << x[0] << " " << x[5] << " " << x[9999] << std::endl;
-        std::cout << "at(): " << x.at(0) << " " << x.at(5) << " " << x.at(9999) << std::endl;
-        CPPUNIT_ASSERT(x.size() == 10000);
+        const C x(34, 1);
+        std::cout << "[]: " << x[0] << " " << x[5] << " " << x[20] << std::endl;
+        std::cout << "at(): " << x.at(0) << " " << x.at(5) << " " << x.at(20) << std::endl;
+        std::cout << "back(): " << x.back() << std::endl;
+        CPPUNIT_ASSERT(x.size() == 34);
     }
     
     void test_size_2 () {
-        const C x(10);
-        CPPUNIT_ASSERT(x.size() == 10);
+        const C x;
+        CPPUNIT_ASSERT(x.empty());
+        CPPUNIT_ASSERT(x.size() == 0);
     }
     
     void test_size_3 () {
-        const C x(100);
+        const C x(100, 1);
         const C y(x);
         std::cout << "[]: " << y[0] << " " << y[5] << " " << y[9999] << std::endl;
         std::cout << "at(): " << y.at(0) << " " << y.at(5) << " " << y.at(9999) << std::endl;
@@ -290,9 +292,9 @@ struct TestDeque : CppUnit::TestFixture {
     // -----
 
     CPPUNIT_TEST_SUITE(TestDeque);
-//    CPPUNIT_TEST(test_size_1);
-//    CPPUNIT_TEST(test_size_2);
-    CPPUNIT_TEST(test_size_3);
+    CPPUNIT_TEST(test_size_1);
+    CPPUNIT_TEST(test_size_2);
+//    CPPUNIT_TEST(test_size_3);
 //    CPPUNIT_TEST(test_equal_1);
 //    CPPUNIT_TEST(test_equal_2);
 //    CPPUNIT_TEST(test_equal_3);
@@ -328,7 +330,7 @@ int main () {
 
     CppUnit::TextTestRunner tr;
     tr.addTest(TestDeque< MyDeque<int> >::suite());
-    tr.addTest(TestDeque<   deque<int> >::suite());
+//    tr.addTest(TestDeque<   deque<int> >::suite());
     tr.run();
 
     cout << "Done." << endl;
