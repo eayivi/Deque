@@ -735,12 +735,12 @@ class MyDeque {
                 ++_top;
             }
             _top = temp;
+
+            _u_top = that._u_top;
+            _u_bottom = that._u_bottom;
             
             _b = that._b;
             _e = that._e;
-            
-            _u_top = that._u_top;
-            _u_bottom = that._u_bottom;
             
             uninitialized_copy(_a, that.begin(), that.end(), begin());
                     
@@ -827,8 +827,6 @@ class MyDeque {
             
             reference result = *_b;
             
-            std::cout << _b - _top[_u_top] << std::endl;
-
             if ((_b - _top[_u_top]) + index > BLOCK_WIDTH) {
                 size_type block_jump = ((_b - _top[_u_top]) + index) / BLOCK_WIDTH;
                 pointer temp = _top[_u_top + block_jump];
