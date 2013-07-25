@@ -44,12 +44,16 @@ struct TestDeque : CppUnit::TestFixture {
     // ----
 
     void test_size_1 () {
-        const C x(34, 1);
+        C x(34, 1);
         std::cout << "[]: " << x[0] << " " << x[5] << " " << x[20] << std::endl;
         std::cout << "at(): " << x.at(0) << " " << x.at(5) << " " << x.at(20) << std::endl;
         std::cout << "back(): " << x.back() << std::endl;
         std::cout << "front(): " << x.front() << std::endl;
+        CPPUNIT_ASSERT(!x.empty());
         CPPUNIT_ASSERT(x.size() == 34);
+        
+        x.clear();
+        CPPUNIT_ASSERT(x.size() == 0);
     }
     
     void test_size_2 () {

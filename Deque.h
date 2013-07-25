@@ -919,7 +919,7 @@ class MyDeque {
          * gives an iterator that points to the first element in a MyDeque
          */
         iterator begin () {
-            std::cout << "BEGIN: " << _u_top << " " << _b - _top[_u_top] << std::endl;
+            //std::cout << "BEGIN: " << _u_top << " " << _b - _top[_u_top] << std::endl;
             return iterator(this, _u_top, _b - _top[_u_top]);
         }
 
@@ -928,7 +928,7 @@ class MyDeque {
          * gives an const_iterator that points to the first element in a MyDeque
          */
         const_iterator begin () const {
-            std::cout << "CONST_BEGIN: " << _u_top << " " << _b - _top[_u_top] << std::endl;
+            //std::cout << "CONST_BEGIN: " << _u_top << " " << _b - _top[_u_top] << std::endl;
             return const_iterator(this, _u_top, _b - _top[_u_top]);
         }
 
@@ -966,7 +966,7 @@ class MyDeque {
          * gives an iterator that points to the last element in a MyDeque
          */
         iterator end () {
-            std::cout << "END: " << _u_bottom << " " << _e - _top[_u_bottom] - 1 << std::endl;
+//            std::cout << "END: " << _u_bottom << " " << _e - _top[_u_bottom] - 1 << std::endl;
             return iterator(this, _u_bottom, _e - _top[_u_bottom] - 1);
         }
 
@@ -975,7 +975,7 @@ class MyDeque {
          * gives an const_iterator that points to the last element in a MyDeque
          */
         const_iterator end () const {
-            std::cout << "CONST_END: " << _u_bottom << " " << _e - _top[_u_bottom] - 1 << std::endl;
+//            std::cout << "CONST_END: " << _u_bottom << " " << _e - _top[_u_bottom] - 1 << std::endl;
             return const_iterator(this, _u_bottom, _e - _top[_u_bottom] - 1);
         }
 
@@ -1106,7 +1106,10 @@ class MyDeque {
             
             size_type capacity = block_size * BLOCK_WIDTH;
             if ( s < size()) {
+                std::cout << "s < size(): " << *(begin()) << std::endl;
+                // work on the args
                 _e = &*destroy(_a, begin() + s, end());
+                std::cout << "s < size(): " << _e << std::endl;
             }
             else if (s <= capacity) {
                 _e = &*uninitialized_fill(_a, end(), begin() + s, v);
