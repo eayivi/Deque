@@ -31,9 +31,9 @@ template <typename C>
 class IntTest : public testing::Test {
 	protected:
 		C x;
-	//	C y;
+		C y;
 
-		IntTest(): x(0){};//, y(0){}
+		IntTest(): x(), y(){}
 };
 typedef testing::Types<std::deque<int>, MyDeque<int> > IntTypes;	// we are typedef-ing this line so we can pass it all
 TYPED_TEST_CASE(IntTest, IntTypes);		// without the commas appearing as separate arguments
@@ -47,7 +47,7 @@ class StringTest : public testing::Test {
 		C x;
 		C y;
 
-		StringTest(): x(0), y(0){}
+		StringTest(): x(), y(){}
 };
 typedef testing::Types<std::deque<std::string>, MyDeque<std::string> > StringTypes;
 TYPED_TEST_CASE(StringTest, StringTypes);
@@ -59,16 +59,16 @@ TYPED_TEST_CASE(StringTest, StringTypes);
 
 
 // Size testing
-TYPED_TEST(IntTest, size_2) {
+TYPED_TEST(IntTest, size_1) {
 	ASSERT_TRUE(this->x.size() == 0);
 }
 
-// TYPED_TEST(IntTest, size_3) {
-// 	this->x.push_back(5);
-// 	ASSERT_TRUE(this->x.size() == 1);
-// }
+//  TYPED_TEST(IntTest, size_2) {
+//  	this->x.push_back(5);
+//  	ASSERT_TRUE(this->x.size() == 1);
+//  }
 
-// TYPED_TEST(IntTest, size_4) {
+// TYPED_TEST(IntTest, size_3) {
 // 	this->x.push_back(5);
 // 	this->x.push_back(5);
 // 	ASSERT_TRUE(this->x.size() == 2);
@@ -86,3 +86,12 @@ TYPED_TEST(IntTest, size_2) {
 // 	this->x.push_front("tuv");
 // 	ASSERT_TRUE(this->x.size() == 2);
 // }
+
+
+// -----------
+// MyDeque(const allocator_type& a = allocator_type()) 
+// -----------
+TEST(Constructors, def_constr_1) {
+	MyDeque<int> x;
+	ASSERT_TRUE(x.size() == 0);
+}
