@@ -269,6 +269,8 @@ class MyDeque {
 
                 /**
                  * @param x a MyDeque pointer
+                 * @param y a size_type
+                 * @param z a size_type
                  * @return a new iterator
                  * constructs a new iterator pointing to an element's address
                  */
@@ -292,7 +294,7 @@ class MyDeque {
                  * dereferences an iterator to access its data
                  */
                 reference operator * () const {
-                    return *(*this->p);
+                    return *(p->_top[i][j]);
                 }
 
                 // -----------
@@ -316,7 +318,14 @@ class MyDeque {
                  * increments an iterator by one
                  */
                 iterator& operator ++ () {
-                    ++(*this->p);
+                    if (p->_top[i][j] == p->_top[i][BLOCK_WIDTH]) {
+                        ++i;
+                        j = 0;
+                    }
+                    else {
+                        ++j;
+                    }
+                    
                     assert(valid());
                     return *this;
                 }
@@ -341,7 +350,14 @@ class MyDeque {
                  * decrements an iterator by one
                  */
                 iterator& operator -- () {
-                    --(*this->p);
+                    if (p->_top[i][j] == p->_top[i][0]) {
+                        --i;
+                        j = BLOCK_WIDTH;
+                    }
+                    else {
+                        --j;
+                    }
+                    
                     assert(valid());
                     return *this;
                 }
@@ -367,7 +383,14 @@ class MyDeque {
                  * increments an iterator by d
                  */
                 iterator& operator += (difference_type d) {
-                    (*this->p) += d;
+                    if (p->_top[i][j] == p->_top[i][0]) {
+                        --i;
+                        j = BLOCK_WIDTH;
+                    }
+                    else {
+                        --j;
+                    }
+                    
                     assert(valid());
                     return *this;
                 }
@@ -767,12 +790,12 @@ class MyDeque {
                 return *_b;
             }
             
-            size_type temp = _u_top;
             reference result;
 
             if ((_b - _top[_u_top]) + index > BLOCK_WIDTH) {
-                //while ()
-                result = _top[++temp];
+                size_type block_jump = ((_b - _top[_u_top]) + index) / BLOCK_WIDTH;
+                pointer temp = _top[_u_top + block_jump];
+                result = *(temp + (BLOCK_WIDTH * block_jump - index));
             }
             else {
                 result = *(_b + index);
@@ -842,19 +865,19 @@ class MyDeque {
         // -----
 
         /**
-         * <your documentation>
+         * @return an iterator
+         * gives an iterator that points to the first element in a MyDeque
          */
         iterator begin () {
-            // <your code>
-            return iterator(/* <your arguments> */);
+            return iterator(this, _u_top, _top[_u_top] - _b);
         }
 
         /**
-         * <your documentation>
+         * @return an const_iterator
+         * gives an const_iterator that points to the first element in a MyDeque
          */
         const_iterator begin () const {
-            // <your code>
-            return const_iterator(/* <your arguments> */);
+            return const_iterator(this, _u_top, _top[_u_top] - _b);
         }
 
         // -----
