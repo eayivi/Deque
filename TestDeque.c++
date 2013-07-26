@@ -51,9 +51,24 @@ struct TestDeque : CppUnit::TestFixture {
         std::cout << "front(): " << x.front() << std::endl;
         CPPUNIT_ASSERT(!x.empty());
         CPPUNIT_ASSERT(x.size() == 21);
-        
+
         x.pop_back();
         CPPUNIT_ASSERT(x.size() == 20);
+
+        x.push_back(3);
+        CPPUNIT_ASSERT(x.back() == 3);
+        CPPUNIT_ASSERT(x.size() == 21);
+
+        x.pop_front();
+        x.pop_front();
+        CPPUNIT_ASSERT(x.size() == 19);
+
+        x.push_front(5);
+        CPPUNIT_ASSERT(x.front() == 5);
+        x.push_front(7);
+        CPPUNIT_ASSERT(x.front() == 7);
+        CPPUNIT_ASSERT(x.size() == 21);
+
     //    
     //    std::cout << std::endl;
     //    C y(21);
@@ -62,7 +77,7 @@ struct TestDeque : CppUnit::TestFixture {
     //    std::cout << "at(): " << y.at(0) << " " << y.at(5) << " " << y.at(20) << std::endl;
     //    std::cout << "back(): " << y.back() << std::endl;
     //    std::cout << "front(): " << y.front() << std::endl;
-    //    assert(y.size() == 21);
+    //    CPPUNIT_ASSERT(y.size() == 21);
     //    
     //    std::cout << std::endl;
     //    C z(35);
@@ -71,29 +86,30 @@ struct TestDeque : CppUnit::TestFixture {
     //    std::cout << "at(): " << z.at(0) << " " << z.at(5) << " " << z.at(20) << std::endl;
     //    std::cout << "back(): " << z.back() << std::endl;
     //    std::cout << "front(): " << z.front() << std::endl;
-    //    assert(z.size() == 21);
+    //    CPPUNIT_ASSERT(z.size() == 21);
 
-        std::cout << std::endl;
+    //    std::cout << std::endl;
     //    C k(10);
     //    k = x;
     //    std::cout << "[]: " << k[0] << " " << k[5] << " " << k[20] << std::endl;
     //    std::cout << "at(): " << k.at(0) << " " << k.at(5) << " " << k.at(20) << std::endl;
     //    std::cout << "back(): " << k.back() << std::endl;
     //    std::cout << "front(): " << k.front() << std::endl;
-    //    assert(k.size() == 21);
+    //    CPPUNIT_ASSERT(k.size() == 21);
 
-//        C g(x);
-//        std::cout << "[]: " << g[0] << " " << g[5] << " " << g[20] << std::endl;
+    //    C g(x);
+    //    std::cout << "[]: " << g[0] << " " << g[5] << " " << g[20] << std::endl;
     //    std::cout << "at(): " << g.at(0) << " " << g.at(5) << " " << g.at(20) << std::endl;
     //    std::cout << "back(): " << g.back() << std::endl;
     //    std::cout << "front(): " << g.front() << std::endl;
-//        CPPUNIT_ASSERT(g.size() == 21);
+    //    CPPUNIT_ASSERT(g.size() == 20);
 
     //    x.erase(x.begin());
-    //    assert(x.size() == 33);
+    //    CPPUNIT_ASSERT(x.size() == 33);
 
     //    x.clear();
-    //    assert(x.size() == 0);
+    //    CPPUNIT_ASSERT(x.size() == 0);
+
     }
     
     void test_size_2 () {
