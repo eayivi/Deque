@@ -44,16 +44,56 @@ struct TestDeque : CppUnit::TestFixture {
     // ----
 
     void test_size_1 () {
-        C x(34, 1);
+        C x(21, 1);
         std::cout << "[]: " << x[0] << " " << x[5] << " " << x[20] << std::endl;
         std::cout << "at(): " << x.at(0) << " " << x.at(5) << " " << x.at(20) << std::endl;
         std::cout << "back(): " << x.back() << std::endl;
         std::cout << "front(): " << x.front() << std::endl;
         CPPUNIT_ASSERT(!x.empty());
-        CPPUNIT_ASSERT(x.size() == 34);
+        CPPUNIT_ASSERT(x.size() == 21);
         
-        x.clear();
-        CPPUNIT_ASSERT(x.size() == 0);
+        x.pop_back();
+        CPPUNIT_ASSERT(x.size() == 20);
+    //    
+    //    std::cout << std::endl;
+    //    C y(21);
+    //    y = x;
+    //    std::cout << "[]: " << y[0] << " " << y[5] << " " << y[20] << std::endl;
+    //    std::cout << "at(): " << y.at(0) << " " << y.at(5) << " " << y.at(20) << std::endl;
+    //    std::cout << "back(): " << y.back() << std::endl;
+    //    std::cout << "front(): " << y.front() << std::endl;
+    //    assert(y.size() == 21);
+    //    
+    //    std::cout << std::endl;
+    //    C z(35);
+    //    z = x;
+    //    std::cout << "[]: " << z[0] << " " << z[5] << " " << z[20] << std::endl;
+    //    std::cout << "at(): " << z.at(0) << " " << z.at(5) << " " << z.at(20) << std::endl;
+    //    std::cout << "back(): " << z.back() << std::endl;
+    //    std::cout << "front(): " << z.front() << std::endl;
+    //    assert(z.size() == 21);
+
+        std::cout << std::endl;
+    //    C k(10);
+    //    k = x;
+    //    std::cout << "[]: " << k[0] << " " << k[5] << " " << k[20] << std::endl;
+    //    std::cout << "at(): " << k.at(0) << " " << k.at(5) << " " << k.at(20) << std::endl;
+    //    std::cout << "back(): " << k.back() << std::endl;
+    //    std::cout << "front(): " << k.front() << std::endl;
+    //    assert(k.size() == 21);
+
+//        C g(x);
+//        std::cout << "[]: " << g[0] << " " << g[5] << " " << g[20] << std::endl;
+    //    std::cout << "at(): " << g.at(0) << " " << g.at(5) << " " << g.at(20) << std::endl;
+    //    std::cout << "back(): " << g.back() << std::endl;
+    //    std::cout << "front(): " << g.front() << std::endl;
+//        CPPUNIT_ASSERT(g.size() == 21);
+
+    //    x.erase(x.begin());
+    //    assert(x.size() == 33);
+
+    //    x.clear();
+    //    assert(x.size() == 0);
     }
     
     void test_size_2 () {
