@@ -11,12 +11,12 @@
  */
 
  // --------
-// includes
-// --------
+ // includes
+ // --------
 
 
 
-//-=-=-=  New unit tests //
+ //-=-=-=  New unit tests //
 
 
 
@@ -249,9 +249,9 @@ TEST(Iterator, 1RowConst) {
     ASSERT_EQ(y.size(), 4);
 }
 
-//     // ----------
-//     // Resize
-//     // ----------
+     // ----------
+     // Resize
+     // ----------
 
 TEST(Resize, Test1) {
     MyDeque<int> x (19, 100);
@@ -342,9 +342,9 @@ TEST(Resize, Test5) {
 }
 
 
-//     // ----------
-//     // Push_back
-//     // ----------
+     // ----------
+     // Push_back
+     // ----------
 
 
 
@@ -376,13 +376,6 @@ TEST(Push_Back, Test2) {
 TEST(Push_Back, Test3) {
     MyDeque<int> x (2, 11);
     x.push_back(9);
-    cout << "\n x.begin() is " << *(x.begin()) << endl;
-    cout << "\n next value is " << *(x.begin() +1) << endl;
-    cout << "\n next value is " << *(x.begin() +2) << endl;
-
-    cout << "\n x.end() is " << *(x.end()-1) << endl;
-
-    // cout << "\n next value is " << *(x.begin() +3) << endl;
     ASSERT_EQ(x.front(), 11);
     ASSERT_EQ(x.back(), 9);
 }
@@ -459,51 +452,49 @@ TEST(Push_Back, Test3) {
 //     ASSERT_EQ(x.size(), 3);
 // }
 
-//     // ----------
-//     // Back/Front
-//     // ----------
+     // ----------
+     // Back/Front
+     // ----------
 
-// TEST(Back_Front, Test1) {
-//     MyDeque<int> x (10, 100);
-//     MyDeque<int>::iterator b = x.begin();
-//     MyDeque<int>::iterator e = x.end();
-//     int count = 0;
-//     while(b != e) {
-//         ASSERT_EQ(*b, 100);
-//         ++b;
-//         ++count;
-//     }
-//     ASSERT_EQ(x.front(), 100);
-//     ASSERT_EQ(x.back(), 100);
-// }
+ TEST(Back_Front, Test1) {
+     MyDeque<int> x (10, 100);
+     MyDeque<int>::iterator b = x.begin();
+     MyDeque<int>::iterator e = x.end();
+     int count = 0;
+     while(b != e) {
+         ASSERT_EQ(*b, 100);
+         ++b;
+         ++count;
+     }
+     ASSERT_EQ(x.front(), 100);
+     ASSERT_EQ(x.back(), 100);
+ }
 
-// TEST(Back_Front, Test2) {
-//     MyDeque<int> x;
-//     x.push_back(10);
-//     ASSERT_EQ(x.front(), 10);
-//     ASSERT_EQ(x.back(), 10);
-// }
+ TEST(Back_Front, Test2) {
+     MyDeque<int> x;
+     x.push_back(10);
+     ASSERT_EQ(x.front(), 10);
+     ASSERT_EQ(x.back(), 10);
+ }
 
-// TEST(Back_Front, Test3) {
-//     MyDeque<int> x;
-//     x.push_back(10);
-//     x.push_front(7);
-//     ASSERT_EQ(x.front(), 7);
-//     ASSERT_EQ(x.back(), 10);
-// }
+ TEST(Back_Front, Test3) {
+     MyDeque<int> x;
+     x.push_back(10);
+     x.push_front(7);
+     ASSERT_EQ(x.front(), 7);
+     ASSERT_EQ(x.back(), 10);
+ }
 
-
-
-//     // ----------
-//     // Pop_back
-//     // ----------
+     // ----------
+     // Pop_back
+     // ----------
     
-// TEST(Pop_Back, Test1) {
-//     MyDeque<int> x (10, 100);
-//     x.pop_back();
-//     ASSERT_EQ(x.size(), 9);
-//     ASSERT_EQ(x.front(), 100);
-// }
+ TEST(Pop_Back, Test1) {
+     MyDeque<int> x (10, 100);
+     x.pop_back();
+     ASSERT_EQ(x.size(), 9);
+     ASSERT_EQ(x.front(), 100);
+ }
 
 // TEST(Pop_Back, Test2) {
 //     MyDeque<int> x(1,1);
@@ -544,9 +535,9 @@ TEST(Push_Back, Test3) {
 //     ASSERT_EQ(x.back(), 100);
 // }
 
-//     // ----------
-//     // Push_front
-//     // ----------
+     // ----------
+     // Push_front
+     // ----------
 
 // TEST(Push_Front, Test1) {
 //     MyDeque<int> x (10, 100);
@@ -595,9 +586,9 @@ TEST(Push_Back, Test3) {
 //     ASSERT_EQ(x.back(), 9);
 // }
 
-//     // ----------
-//     // Pop_front
-//     // ----------
+     // ----------
+     // Pop_front
+     // ----------
     
 // TEST(Pop_Front, Test1) {
 //     MyDeque<int> x (10, 100);
@@ -642,9 +633,9 @@ TEST(Push_Back, Test3) {
 //     ASSERT_EQ(x.back(), 100);
 // }
 
-//     // ----------
-//     //   Insert
-//     // ----------
+     // ----------
+     //   Insert
+     // ----------
 
 // TEST(Insert, Test1) {
 //     MyDeque<int> x (10, 100);
@@ -685,9 +676,9 @@ TEST(Push_Back, Test3) {
 //     ASSERT_EQ(*it, 99);
 // }
 
-//     // ----------
-//     //   Erase
-//     // ----------
+     // ----------
+     //   Erase
+     // ----------
 
 // TEST(Erase, Test1) {
 //     MyDeque<int> x (10, 100);
@@ -722,9 +713,10 @@ TEST(Push_Back, Test3) {
 //     ASSERT_EQ(x.size(), 9);
 //     ASSERT_EQ(*it, 100);
 // }
-    // -----------------
-    // Access element []
-//     // -----------------
+
+     // -----------------
+     // Access element []
+     // -----------------
 
 // TEST(Access_element, Test1) {
 //   MyDeque<int> x (10, 100);
@@ -755,9 +747,9 @@ TEST(Push_Back, Test3) {
 //   }
 // }
 
-//     // -----------------
-//     // Access element at
-//     // -----------------
+     // -----------------
+     // Access element at
+     // -----------------
 
 // TEST(Access_element_at, Test1) {
 //   MyDeque<int> x (10, 100);
@@ -782,9 +774,9 @@ TEST(Push_Back, Test3) {
 // }
 
     
-//     // ---------
-//     // equals_to
-//     // ---------
+     // ---------
+     // equals_to
+     // ---------
 
 // TEST(Equals, Test1) {
 //   MyDeque<int> x (10, 100);
@@ -812,9 +804,9 @@ TEST(Push_Back, Test3) {
 // 	ASSERT_TRUE(x != y);
 // }
 
-//     // ---------
-//     // less_than
-//     // ---------
+     // ---------
+     // less_than
+     // ---------
 
 // TEST(Less_than, Test1) {
 //   MyDeque<int> x (3, 100);
@@ -840,12 +832,9 @@ TEST(Push_Back, Test3) {
 // 	ASSERT_TRUE(x >= y);
 // }
 
-
-
-
-//     //----
-//     //Swap
-//     //----
+     //----
+     //Swap
+     //----
     
 // TEST(Swap, Test1) {
 //    MyDeque<int> x(10,1);
@@ -871,9 +860,9 @@ TEST(Push_Back, Test3) {
 // }
 
 
-//     //------------------
-//     //Testing everything
-//     //------------------
+     //------------------
+     //Testing everything
+     //------------------
     
 // TEST(Everything, Test1) {
 //   MyDeque<int> x(10, 10);
