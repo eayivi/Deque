@@ -15,40 +15,33 @@
 // --------
 
 
-/*
-#include <algorithm> // equal
-#include <cstring>   // strcmp
-#include <deque>     // deque
-#include <sstream>   // ostringstream
-#include <stdexcept> // invalid_argument
-#include <string>    // ==
-#include <memory>   // allocator
-#include <cstdlib>	 // rand
-
-#include "gtest/gtest.h"
-
-#include "Deque.h"
-
 
 //-=-=-=  New unit tests //
 
-*/
 
+
+#include <cstring>   // strcmp
+#include <deque>     // deque
+#include <algorithm> // equal
 #include <iostream> // cout, endl
 #include <sstream>  // istringtstream, ostringstream
 #include <string>   // ==
 #include "gtest/gtest.h"
 #include <deque>
+#include <stdexcept> // invalid_argument
+#include <memory>   // allocator
+#include <cstdlib>   // rand
 
 #define private public
 #define protected public
 #include "Deque.h"
 using namespace std;
 
+
     // -----------
     // constructors
     // -----------
-TEST(Constructor, default) {
+TEST(Constructor, default_case) {
     MyDeque<int> x;
     deque<int> y;
     ASSERT_EQ(x.size(), 0);
@@ -76,17 +69,19 @@ TEST(Constructor, fill_constructor_2) {
     // ----------------
 
 
-TEST(Constructor, test_1) {
+TEST(CopyConstructor, test_1) {
     MyDeque<int> x (33, 100);
     MyDeque<int> y (x);
-
-    ASSERT_EQ(x.size(), 33);
-    ASSERT_EQ(y.size(), 33);
+    // cout << "y.size is " << y.size();
+    ASSERT_TRUE(x.size() == 33);
+    ASSERT_TRUE(y.size() == 33);
 }
 
 TEST(CopyConstructor, test_2) {
     MyDeque<int> x (6, 35);
     MyDeque<int> y(x);
+    // cout << "y.size is " << y.size();
+ 
     ASSERT_EQ(x.size(), 6);
     ASSERT_EQ(y.size(), 6);
 }
@@ -98,6 +93,7 @@ TEST(CopyConstructor, Test3) {
     ASSERT_EQ(x.size(), 66);
     ASSERT_EQ(z.size(), 66);
 }
+
 
     // ----------------
     // Copy Assignment
@@ -111,13 +107,12 @@ TEST(CopyAssignment, Assign1) {
     ASSERT_EQ(z.size(), 5);
 }
 
+
+
 TEST(CopyAssignment, Assign2) {
     MyDeque<int> x (26, 50);
     MyDeque<int> z(2, 10);
     z = x;
-    // MyDeque<int>::iterator xb = x.begin();
-    // MyDeque<int>::iterator b = z.begin();
-    // MyDeque<int>::iterator e = z.end();
     ASSERT_EQ(x.size(), 26);
     ASSERT_EQ(z.size(), 26);
 }
@@ -127,177 +122,208 @@ TEST(CopyAssignment, Assign3) {
     MyDeque<int> x (25, 5);
     MyDeque<int> z(10, 6);
     z = x;
-    // MyDeque<int>::iterator xb = x.begin();
-    // MyDeque<int>::iterator b = z.begin();
-    // MyDeque<int>::iterator e = z.end();
     ASSERT_EQ(x.size(), 25);
     ASSERT_EQ(z.size(), 25);
 }
 
+TEST(CopyAssignment, Assign4) {
+    MyDeque<int> x (2, 5);
+    MyDeque<int> z(9, 6);
+    z = x;
+    ASSERT_EQ(x.size(), 2);
+    ASSERT_EQ(z.size(), 2);
+}
 
-//     // ----------
-//     // iterators
-//     // ----------
-    
-// TEST(Iterator, 1Row) {
-//     MyDeque<int> x (4, 100);
-//     deque<int> y(4, 100);
-//     MyDeque<int>::iterator b = x.begin();
-//     MyDeque<int>::iterator e = x.end();
-//     int count = 0;
-//     while(b != e) {
-//         ASSERT_EQ(*b, 100);
-//         ++b;
-//         ++count;
-//     }
-//     ASSERT_EQ(count, 4);
-//     ASSERT_EQ(x.size(), 4);
-//     ASSERT_EQ(y.size(), 4);
-// }
+TEST(CopyAssignment, Assign5) {
+    MyDeque<int> x (19, 5);
+    MyDeque<int> z(9, 6);
+    z = x;
+    ASSERT_EQ(x.size(), 19);
+    ASSERT_EQ(z.size(), 19);
+}
+    // ----------
+    // iterators
+    // ----------
+   
+TEST(Iterator, 1Row) {
+    MyDeque<int> x (4, 100);
+    deque<int> y(4, 100);
+    MyDeque<int>::iterator b = x.begin();
+    MyDeque<int>::iterator e = x.end();
+    int count = 0;
+    while(b != e) {
+        ASSERT_EQ(*b, 100);
+        ++b;
+        ++count;
+    }
+    ASSERT_EQ(count, 4);
+    ASSERT_EQ(x.size(), 4);
+    ASSERT_EQ(y.size(), 4);
+}
 
-// TEST(Iterator, MultiRow) {
-//     MyDeque<int> x (15, 100);
-//     deque<int> y(15, 100);
-//     MyDeque<int>::iterator b = x.begin();
-//     MyDeque<int>::iterator e = x.end();
-//     int count = 0;
-//     while(b != e) {
-//         ASSERT_EQ(*b, 100);
-//         ++b;
-//         ++count;
-//     }
-//     ASSERT_EQ(count, 15);
-//     ASSERT_EQ(x.size(), 15);
-//     ASSERT_EQ(y.size(), 15);
-// }
+TEST(Iterator, MultiRow) {
+    MyDeque<int> x (15, 100);
+    deque<int> y(15, 100);
+    MyDeque<int>::iterator b = x.begin();
+    MyDeque<int>::iterator e = x.end();
+    int count = 0;
+    while(b != e) {
+        ASSERT_EQ(*b, 100);
+        ++b;
+        ++count;
+    }
+    ASSERT_EQ(count, 15);
+    ASSERT_EQ(x.size(), 15);
+    ASSERT_EQ(y.size(), 15);
+}
 
-// TEST(Iterator, Back1Row) {
-//     MyDeque<int> x (4, 100);
-//     deque<int> y(4, 100);
-//     MyDeque<int>::iterator b = x.begin();
-//     MyDeque<int>::iterator e = x.end();
-//     int count = 0;
-//     --e;
-//     --b;
-//     while(b != e) {
-//         ASSERT_EQ(*e, 100);
-//         --e;
-//         ++count;
-//     }
-//     ASSERT_EQ(count, 4);
-//     ASSERT_EQ(x.size(), 4);
-//     ASSERT_EQ(y.size(), 4);
-// }
+TEST(Iterator, Back1Row) {
+    MyDeque<int> x (4, 100);
+    deque<int> y(4, 100);
+    MyDeque<int>::iterator b = x.begin();
+    MyDeque<int>::iterator e = x.end();
+    int count = 0;
+    --e;
+    --b;
+    while(b != e) {
+        ASSERT_EQ(*e, 100);
+        --e;
+        ++count;
+    }
+    ASSERT_EQ(count, 4);
+    ASSERT_EQ(x.size(), 4);
+    ASSERT_EQ(y.size(), 4);
+}
+
+
+
 
 // TEST(Iterator, BackMultiRow) {
 //     MyDeque<int> x (101, 100);
-//     deque<int> y(101, 100);
 //     MyDeque<int>::iterator b = x.begin();
 //     MyDeque<int>::iterator e = x.end();
 //     int count = 0;
 //     --e;
 //     --b;
 //     while(b != e) {
-//         ASSERT_EQ(*e, 100);
+
 //         --e;
 //         ++count;
 //     }
 //     ASSERT_EQ(count, 101);
 //     ASSERT_EQ(x.size(), 101);
-//     ASSERT_EQ(y.size(), 101);
+
 // }
 
-// TEST(Iterator, 1RowConst) {
-//     const MyDeque<int> x (4, 100);
-//     deque<int> y(4, 100);
-//     MyDeque<int>::const_iterator b = x.begin();
-//     MyDeque<int>::const_iterator e = x.end();
-//     int count = 0;
-//     while(b != e) {
-//         ASSERT_EQ(*b, 100);
-//         ++b;
-//         ++count;
-//     }
-//     ASSERT_EQ(count, 4);
-//     ASSERT_EQ(x.size(), 4);
-//     ASSERT_EQ(y.size(), 4);
-// }
+TEST(Iterator, BackMultiRow2) {
+    MyDeque<int> x (101, 100);
+    MyDeque<int>::iterator b = x.begin();
+    MyDeque<int>::iterator e = x.end();
+    int count = 0;
+    --e;
+    while(b != e) {
+        ASSERT_EQ(*b, 100);
+        ++b;
+        ++count;
+    }
+    ASSERT_EQ(++count, 101);
+    ASSERT_EQ(x.size(), 101);
+
+}
+
+
+TEST(Iterator, 1RowConst) {
+    const MyDeque<int> x (4, 100);
+    deque<int> y(4, 100);
+    MyDeque<int>::const_iterator b = x.begin();
+    MyDeque<int>::const_iterator e = x.end();
+    int count = 0;
+    while(b != e) {
+        ASSERT_EQ(*b, 100);
+        ++b;
+        ++count;
+    }
+    ASSERT_EQ(count, 4);
+    ASSERT_EQ(x.size(), 4);
+    ASSERT_EQ(y.size(), 4);
+}
 
 //     // ----------
 //     // Resize
 //     // ----------
 
-// TEST(Resize, Test1) {
-//     MyDeque<int> x (20, 100);
-//     x.resize(10);
-//     MyDeque<int>::iterator b = x.begin();
-//     MyDeque<int>::iterator e = x.end();
-//     int count = 0;
-//     while(b != e) {
-//         ASSERT_EQ(*b, 100);
-//         ++b;
-//         ++count;
-//     }
-//     ASSERT_EQ(count, 10);
-//     ASSERT_EQ(x.size(), 10);
-// }
+TEST(Resize, Test1) {
+    MyDeque<int> x (19, 100);
+    x.resize(10);
 
-// TEST(Resize, Test2) {
-//     MyDeque<int> x (25, 100);
-//     x.resize(15);
-//     MyDeque<int>::iterator b = x.begin();
-//     MyDeque<int>::iterator e = x.end();
-//     int count = 0;
-//     while(b != e) {
-//         ASSERT_EQ(*b, 100);
-//         ++b;
-//         ++count;
-//     }
-//     ASSERT_EQ(count, 15);
-//     ASSERT_EQ(x.size(), 15);
-// }
+    MyDeque<int>::iterator b = x.begin();
+    MyDeque<int>::iterator e = x.end();
+    int count = 0;
+    while(b != e) {
+        ASSERT_EQ(*b, 100);
+        ++b;
+        ++count;
+    }
+    ASSERT_EQ(count, 10);
+    ASSERT_EQ(x.size(), 10);
+}
 
-// TEST(Resize, Test3) {
-//     MyDeque<int> x (25, 100);
-//     MyDeque<int>::iterator it = x.end();
-//     x.resize(30);
-//     MyDeque<int>::iterator b = x.begin();
-//     MyDeque<int>::iterator e = x.end();
-//     int count = 0;
-//     while(b != it) {
-//         ASSERT_EQ(*b, 100);
-//         ++b;
-//         ++count;
-//     }
-//     while(b != e) {
-//         ASSERT_EQ(*b, 0);
-//         ++b;
-//         ++count;
-//     }
-//     ASSERT_EQ(count, 30);
-//     ASSERT_EQ(x.size(), 30);
-// }
+TEST(Resize, Test2) {
+    MyDeque<int> x (25, 100);
+    x.resize(15);
+    MyDeque<int>::iterator b = x.begin();
+    MyDeque<int>::iterator e = x.end();
+    int count = 0;
+    while(b != e) {
+        ASSERT_EQ(*b, 100);
+        ++b;
+        ++count;
+    }
+    ASSERT_EQ(count, 15);
+    ASSERT_EQ(x.size(), 15);
+}
 
-// TEST(Resize, Test4) {
-//     MyDeque<int> x (25, 100);
-//     MyDeque<int>::iterator it = x.end();
-//     x.resize(35);
-//     MyDeque<int>::iterator b = x.begin();
-//     MyDeque<int>::iterator e = x.end();
-//     int count = 0;
-//     while(b != it) {
-//         ASSERT_EQ(*b, 100);
-//         ++b;
-//         ++count;
-//     }
-//     while(b != e) {
-//         ASSERT_EQ(*b, 0);
-//         ++b;
-//         ++count;
-//     }
-//     ASSERT_EQ(count, 35);
-//     ASSERT_EQ(x.size(), 35);
-// }
+TEST(Resize, Test3) {
+    MyDeque<int> x (25, 100);
+    MyDeque<int>::iterator it = x.end();
+    x.resize(30);
+    MyDeque<int>::iterator b = x.begin();
+    MyDeque<int>::iterator e = x.end();
+    int count = 0;
+    while(b != it) {
+        ASSERT_EQ(*b, 100);
+        ++b;
+        ++count;
+    }
+    while(b != e) {
+        ASSERT_EQ(*b, 0);
+        ++b;
+        ++count;
+    }
+    ASSERT_EQ(count, 30);
+    ASSERT_EQ(x.size(), 30);
+}
+
+TEST(Resize, Test4) {
+    MyDeque<int> x (25, 100);
+    MyDeque<int>::iterator it = x.end();
+    x.resize(35);
+    MyDeque<int>::iterator b = x.begin();
+    MyDeque<int>::iterator e = x.end();
+    int count = 0;
+    while(b != it) {
+        ASSERT_EQ(*b, 100);
+        ++b;
+        ++count;
+    }
+    while(b != e) {
+        ASSERT_EQ(*b, 0);
+        ++b;
+        ++count;
+    }
+    ASSERT_EQ(count, 35);
+    ASSERT_EQ(x.size(), 35);
+}
 
 // TEST(Resize, Test5) {
 //     MyDeque<int> x;
