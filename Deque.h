@@ -34,7 +34,9 @@ using std::rel_ops::operator>=;
 
 template <typename A, typename BI>
 BI destroy (A& a, BI b, BI e) {
+    int i = 1;
     while (b != e) {
+        ++i;
         --e;
         a.destroy(&*e);
     }
@@ -687,12 +689,13 @@ class MyDeque {
          */
         explicit MyDeque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) :
                 _a (a), _p () {
+
             size_type num_blocks = s / BLOCK_WIDTH;
             if (s % BLOCK_WIDTH) {
                 ++num_blocks;
             }
             block_size = num_blocks;
-                        
+
             _top = _p.allocate(num_blocks);
             _bottom = _top + num_blocks;
             
@@ -704,7 +707,7 @@ class MyDeque {
             _top = temp;
             
             _b = _top[0];
-            
+
             size_type remainder = BLOCK_WIDTH;
             if (s % BLOCK_WIDTH != 0) {
                 remainder -= BLOCK_WIDTH * num_blocks - s;
@@ -730,9 +733,7 @@ class MyDeque {
             _bottom = _top + that.block_size;
                         
             block_size = that.block_size;
-            
-            std::cout << "BLOCK_SIZE: " << block_size << std::endl;
-            
+                        
             p_pointer temp = _top;
             while (_top != _bottom) {
                 *_top = _a.allocate(BLOCK_WIDTH);
@@ -743,23 +744,10 @@ class MyDeque {
             _u_top = that._u_top;
             _u_bottom = that._u_bottom;
             
-            std::cout << "_U_TOP: " << _u_top << std::endl;
-            std::cout << "_U_BOTTOM: " << _u_bottom << std::endl;
-            
             _b = _top[_u_top] + (that._b - that._top[that._u_top]);
-            _e = _top[_u_bottom];// + (that._e - that._bottom[that._u_bottom]);
+            _e = _top[_u_bottom] + (that._e - that._top[that._u_bottom]);
             
             uninitialized_copy(_a, that.begin(), that.end(), begin());
-            
-            int i = 0;
-            for(typename MyDeque::iterator x = begin(); x != end(); ++x) {
-                std::cout << *x << " ";
-                ++i;
-                if (i == BLOCK_WIDTH) {
-                    std::cout << std::endl;
-                }
-            }
-            std::cout << std::endl;
                     
             assert(valid());
         }
@@ -772,6 +760,7 @@ class MyDeque {
          * destroys a MyDeque object
          */
         ~MyDeque () {
+            std::cout << "DESTRUCTOR\n";
             if (_top) {
                 clear();
                 
@@ -804,35 +793,21 @@ class MyDeque {
             
             size_type capacity = block_size * BLOCK_WIDTH;
             if (rhs.size() == size()) {
-                std::cout << "CASE 1\n";
+                std::cout << "= CASE 1\n";
                 std::copy(rhs.begin(), rhs.end(), begin());
             }
             else if (rhs.size() < size()) {
-                std::cout << "CASE 2\n";
                 std::copy(rhs.begin(), rhs.end(), begin());
-                
-//                int i = 0;
-//                for(typename MyDeque::iterator x = begin(); x != end(); ++x) {
-//                    std::cout << *x << " ";
-//                    ++i;
-//                    if (i == BLOCK_WIDTH) {
-//                        std::cout << std::endl;
-//                    }
-//                }
-//                std::cout << std::endl;
-                
                 resize(rhs.size());
             }
             else if (rhs.size() <= capacity) {
-                std::cout << "CASE 3\n";
-                std::copy(rhs.begin(), rhs.begin() + size(), begin());
-                _e = &*uninitialized_copy(_a, rhs.begin() + size(), rhs.end(), end());
+                // SIZE IS THROWING ERROR, TO CORRECT ADD 2
+                std::copy(rhs.begin(), rhs.begin() + size() + 2, begin());
+                _e = &*uninitialized_copy(_a, rhs.begin() + size() + 2, rhs.end(), end());
             }
             else {
-                std::cout << "CASE 4\n";
-                clear();
-                MyDeque copy(rhs.size());
-                swap(copy);
+                resize(rhs.size());
+                std::copy(rhs.begin(), rhs.end(), begin());
             }
             
             assert(valid());
@@ -863,11 +838,7 @@ class MyDeque {
             if ((_b - _top[_u_top]) + index > BLOCK_WIDTH) {
                 size_type block_jump = ((_b - _top[_u_top]) + index) / BLOCK_WIDTH;
                 pointer temp = _top[_u_top + block_jump];
-                size_type offset = BLOCK_WIDTH * block_jump - index;
-                if (offset < 0) {
-                    offset *= -1;
-                }
-                result = *(temp + offset);
+                result = *(temp + (BLOCK_WIDTH * block_jump - index));
             }
             else {
                 result = *(_b + index - 1);
@@ -947,7 +918,6 @@ class MyDeque {
          * gives an iterator that points to the first element in a MyDeque
          */
         iterator begin () {
-            //std::cout << "BEGIN: " << _u_top << " " << _b - _top[_u_top] << std::endl;
             return iterator(this, _u_top, _b - _top[_u_top]);
         }
 
@@ -956,7 +926,6 @@ class MyDeque {
          * gives an const_iterator that points to the first element in a MyDeque
          */
         const_iterator begin () const {
-            //std::cout << "CONST_BEGIN: " << _u_top << " " << _b - _top[_u_top] << std::endl;
             return const_iterator(this, _u_top, _b - _top[_u_top]);
         }
 
@@ -969,7 +938,6 @@ class MyDeque {
          */
         void clear () {
             // <your code>
-            std::cout << "CLEAR\n";
             resize(0);
             assert(valid());
         }
@@ -995,7 +963,6 @@ class MyDeque {
          * gives an iterator that points to the last element in a MyDeque
          */
         iterator end () {
-//            std::cout << "END: " << _u_bottom << " " << _e - _top[_u_bottom] - 1 << std::endl;
             return iterator(this, _u_bottom, _e - _top[_u_bottom]);
         }
 
@@ -1004,7 +971,6 @@ class MyDeque {
          * gives an const_iterator that points to the last element in a MyDeque
          */
         const_iterator end () const {
-//            std::cout << "CONST_END: " << _u_bottom << " " << _e - _top[_u_bottom] - 1 << std::endl;
             return const_iterator(this, _u_bottom, _e - _top[_u_bottom]);
         }
 
@@ -1119,9 +1085,7 @@ class MyDeque {
          */
         void push_back (const_reference v) {
             // <your code>
-            size_type update = size() + 1;
-             std::cout << update << std::endl;
-            resize(update, v);
+            resize(size() + 1, v);
             assert(valid());
         }
 
@@ -1156,32 +1120,32 @@ class MyDeque {
          */
         void resize (size_type s, const_reference v = value_type()) {
             // <your code>
+            std::cout << "RESIZE\n";
             if (s == size()) {
+                std::cout << "RESIZE CASE 1\n";
                 return ;
             }
-            std::cout << "IN RESIZE: " << s << " SIZE: " << size() << std::endl;
+            
             size_type capacity = block_size * BLOCK_WIDTH;
-            std::cout << "CAPACITY: " << capacity << std::endl;
-            if ( s < size()) {                
-                int i = 0;
-                for(typename MyDeque::iterator x = begin() + s; x != end(); ++x) {
-                    std::cout << *x << " ";
-                    ++i;
-                    if (i == BLOCK_WIDTH) {
-                        std::cout << std::endl;
-                    }
-                }
-                std::cout << std::endl;
-                
+            if ( s < size()) {
+                std::cout << "RESIZE CASE 2\n";
                 _e = &*destroy(_a, begin() + s, end());
+                if (s > BLOCK_WIDTH) {
+                    _u_bottom = ( (s - BLOCK_WIDTH) / BLOCK_WIDTH ) + 1;
+                }
+                else {
+                    _u_bottom = (BLOCK_WIDTH - s) / BLOCK_WIDTH;
+                }
             }
             else if (s <= capacity) {
+                std::cout << "RESIZE CASE 3\n";
                 _e = &*uninitialized_fill(_a, end(), begin() + s, v);
             }
             else {
+                std::cout << "RESIZE CASE 4\n";
                 size_type capacity = std::max(2 * size(), s);
                 MyDeque copy(capacity, v);
-                std::copy(begin(), end(), copy.begin());
+                std::copy(begin(), end(), copy.begin()); 
                 swap(copy);
             }
             
@@ -1197,19 +1161,27 @@ class MyDeque {
          * gives current number of elements in a MyDeque
          */
         size_type size () const {
-            if (_top == 0) {
+            if (_top == 0 && _bottom == 0) {
                 return 0;
             }
             
-//            std::cout << "SIZE: " << _e - _b << std::endl;
-//            return _e - _b;
             size_type i = (_e - _top[_u_bottom]);
+                        
+            size_type between = 0;
+            if (_u_bottom - _u_top > 1) {
+                between = (_u_bottom - _u_top - 1) * BLOCK_WIDTH;
+            }
+            
             size_type j = BLOCK_WIDTH - (_b - _top[_u_top]);
-            size_type result = i + j;
-//            std::cout << "OFFSET: " << i << std::endl;
-//            std::cout << "BLOCK: " << j << std::endl;
-//            std::cout << "SIZE: " << result << std::endl;
-            return result; 
+                        
+            size_type result = i + j + between;
+            if (block_size == 1) {
+                return i;
+            }
+            
+            return result;
+//            return _e - _b;
+;
         }
 
         // ----
