@@ -972,6 +972,7 @@ class MyDeque {
          * gives an iterator that points to the last element in a MyDeque
          */
         iterator end () {
+            std::cout << "U_BOTTOM: " << _u_bottom << " _e - _top[_u_bottom]: " << _e - _top[_u_bottom] << std::endl;;
             return iterator(this, _u_bottom, _e - _top[_u_bottom]);
         }
 
@@ -1095,12 +1096,19 @@ class MyDeque {
          */
         void push_back (const_reference v) {
             // <your code>
-            MyDeque copy(size() + 1, 0);
-            std::copy(begin(), end(), copy.begin());
-            std::fill(copy.begin() + size(), copy.end, v);
-            swap(copy);
-//            resize(size() + 1, v);
-//            assert(valid());
+            if (size() != 0) {
+                std::cout << "SPECIAL CASE!" << std::endl;
+//                std::cout << "NEW: " << *(end() - 1) << std::endl;
+                std::cout << "NEW: ";
+                MyDeque copy(size() + 1, 0);
+                std::cout << "COPY: "; std::copy(begin(), end(), copy.begin());
+                std::cout << "FILL: "; std::fill(copy.begin() + size(), copy.end(), v);
+                swap(copy);
+            }
+            else {
+                resize(size() + 1, v);
+                assert(valid());
+            }
         }
 
         /**
