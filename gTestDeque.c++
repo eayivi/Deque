@@ -26,6 +26,7 @@
 #include <iostream> // cout, endl
 #include <sstream>  // istringtstream, ostringstream
 #include <string>   // ==
+#include "Deque.h"
 #include "gtest/gtest.h"
 #include <deque>
 #include <stdexcept> // invalid_argument
@@ -34,7 +35,7 @@
 
 #define private public
 #define protected public
-#include "Deque.h"
+
 using namespace std;
 
 
@@ -325,24 +326,79 @@ TEST(Resize, Test4) {
     ASSERT_EQ(x.size(), 35);
 }
 
-// TEST(Resize, Test5) {
-//     MyDeque<int> x;
-//     x.resize(37);
-//     MyDeque<int>::iterator b = x.begin();
-//     MyDeque<int>::iterator e = x.end();
-//     int count = 0;
-//     while(b != e) {
-//         ASSERT_EQ(*b, 0);
-//         ++b;
-//         ++count;
-//     }
-//     ASSERT_EQ(count, 37);
-//     ASSERT_EQ(x.size(), 37);
-// }
+TEST(Resize, Test5) {
+    MyDeque<int> x;
+    x.resize(37);
+    MyDeque<int>::iterator b = x.begin();
+    MyDeque<int>::iterator e = x.end();
+    int count = 0;
+    while(b != e) {
+        ASSERT_EQ(*b, 0);
+        ++b;
+        ++count;
+    }
+    ASSERT_EQ(count, 37);
+    ASSERT_EQ(x.size(), 37);
+}
+
 
 //     // ----------
-//     // Clear
+//     // Push_back
 //     // ----------
+
+
+
+TEST(Push_Back, Test1) {
+    MyDeque<int> x;
+    x.push_back(9);
+    ASSERT_EQ(x.size(), 1);
+    ASSERT_EQ(x.front(), 9);
+    ASSERT_EQ(x.back(), 9);
+}
+
+TEST(Push_Back, Test2) {
+    MyDeque<int> x;
+    x.push_back(1);
+    x.push_back(2);
+    x.push_back(3);
+    x.push_back(4);
+    x.push_back(5);
+    x.push_back(6);
+    x.push_back(7);
+    x.push_back(8);
+    x.push_back(9);
+    x.push_back(10);
+    ASSERT_EQ(x.size(), 10);
+    ASSERT_EQ(x.front(), 1);
+    ASSERT_EQ(x.back(), 10);
+}
+
+TEST(Push_Back, Test3) {
+    MyDeque<int> x (2, 11);
+    x.push_back(9);
+    cout << "\n x.begin() is " << *(x.begin()) << endl;
+    cout << "\n next value is " << *(x.begin() +1) << endl;
+    cout << "\n next value is " << *(x.begin() +2) << endl;
+
+    cout << "\n x.end() is " << *(x.end()-1) << endl;
+
+    // cout << "\n next value is " << *(x.begin() +3) << endl;
+    ASSERT_EQ(x.front(), 11);
+    ASSERT_EQ(x.back(), 9);
+}
+
+/*TEST(Push_Back, Test4) {
+    MyDeque<int> x(0);
+    x.push_back(9);
+    // cout << "x.front is " << x.front() << "\n";
+    ASSERT_EQ(x.size(), 1);
+    ASSERT_EQ(x.front(), 9);
+    ASSERT_EQ(x.back(), 9);
+}*/
+
+    // ----------
+    // Clear
+    // ----------
 
 // TEST(Clear, Test1) {
 //     MyDeque<int> x;
@@ -436,49 +492,7 @@ TEST(Resize, Test4) {
 //     ASSERT_EQ(x.back(), 10);
 // }
 
-//     // ----------
-//     // Push_back
-//     // ----------
 
-// TEST(Push_Back, Test1) {
-//     MyDeque<int> x (10, 100);
-//     x.push_back(9);
-//     ASSERT_EQ(x.front(), 100);
-//     ASSERT_EQ(x.back(), 9);
-// }
-
-// TEST(Push_Back, Test2) {
-//     MyDeque<int> x;
-//     x.push_back(9);
-//     ASSERT_EQ(x.size(), 1);
-//     ASSERT_EQ(x.front(), 9);
-//     ASSERT_EQ(x.back(), 9);
-// }
-
-// TEST(Push_Back, Test3) {
-//     MyDeque<int> x;
-//     x.push_back(9);
-//     x.push_back(9);
-//     x.push_back(9);
-//     x.push_back(9);
-//     x.push_back(9);
-//     x.push_back(9);
-//     x.push_back(9);
-//     x.push_back(9);
-//     x.push_back(9);
-//     x.push_back(9);
-//     ASSERT_EQ(x.size(), 10);
-//     ASSERT_EQ(x.front(), 9);
-//     ASSERT_EQ(x.back(), 9);
-// }
-
-// TEST(Push_Back, Test4) {
-//     MyDeque<int> x(0);
-//     x.push_back(9);
-//     ASSERT_EQ(x.size(), 1);
-//     ASSERT_EQ(x.front(), 9);
-//     ASSERT_EQ(x.back(), 9);
-// }
 
 //     // ----------
 //     // Pop_back
