@@ -1064,6 +1064,7 @@ class MyDeque {
         void pop_front () {
             //<your code>
             destroy(_a, begin(), begin() + 1);
+            
             if (_b - _top[_u_top] ==  BLOCK_WIDTH) {
                 ++_u_top;
                 _b = _top[_u_top];
@@ -1071,6 +1072,15 @@ class MyDeque {
             else {
                 ++_b;
             }
+            
+            std::cout << std::endl << std::endl;
+            for (typename MyDeque::iterator itr = begin(); itr != end(); ++itr) {
+                std::cout << *itr <<  " ";
+                if (itr.j == BLOCK_WIDTH - 1) {
+                    std::cout << std::endl;
+                }
+            }
+            std::cout << std::endl << std::endl;
             
             assert(valid());
         }
@@ -1139,7 +1149,11 @@ class MyDeque {
             }
             else if (s <= capacity) {
                 std::cout << "RESIZE CASE 3\n";
+                std::cout << "S: " << s << std::endl;
+                pointer temp = _e + 1;
+                std::cout << "A OF _E: " << &_e << " A OF _E + 1: " << &temp << std::endl;
                 _e = &*uninitialized_fill(_a, end(), begin() + s, v);
+                std::cout << "A OF _E: " << &_e << " A OF _E + 1: " << &temp << std::endl;
             }
             else {
                 std::cout << "RESIZE CASE 4\n";
