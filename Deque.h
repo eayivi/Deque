@@ -1095,8 +1095,6 @@ class MyDeque {
          */
         void push_back (const_reference v) {
             // <your code>
-            std::cout << size() + 1 << std::endl;
-            std::cout << "PUSH_BACK" << std::endl;
             resize(size() + 1, v);
             assert(valid());
         }
@@ -1133,7 +1131,6 @@ class MyDeque {
          */
         void resize (size_type s, const_reference v = value_type()) {
             // <your code>
-            std::cout << "RESIZE\n";
             if (s == size()) {
                 std::cout << "RESIZE CASE 1" << std::endl;
                 return ;
@@ -1152,8 +1149,6 @@ class MyDeque {
             }
             else if (s <= capacity) {
                 std::cout << "RESIZE CASE 3" << std::endl;
-//                iterator itr = begin() + s;
-                std::cout << "SIZE(): " << size() << std::endl;
                 _e = &*uninitialized_fill(_a, end(), begin() + s, v);
             }
             else {
@@ -1177,28 +1172,27 @@ class MyDeque {
          * @return a size_type
          * gives current number of elements in a MyDeque
          */
-        size_type size () const {
+        size_type size () const {            
             if (_top == 0 && _bottom == 0) {
                 return 0;
             }
             
             size_type i = (_e - _top[_u_bottom]);
-                        
+            
             size_type between = 0;
             if (_u_bottom - _u_top > 1) {
                 between = (_u_bottom - _u_top - 1) * BLOCK_WIDTH;
             }
-            
-            size_type j = BLOCK_WIDTH - (_b - _top[_u_top]);
+
+            size_type j = 0;
+            if (_u_bottom - _u_top != 0) {
+                j = BLOCK_WIDTH - (_b - _top[_u_top]);
+            }    
                         
             size_type result = i + j + between;
-            if (block_size == 1) {
-                return i;
-            }
-            
             return result;
+            
 //            return _e - _b;
-;
         }
 
         // ----
