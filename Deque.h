@@ -1095,8 +1095,12 @@ class MyDeque {
          */
         void push_back (const_reference v) {
             // <your code>
-            resize(size() + 1, v);
-            assert(valid());
+            MyDeque copy(size() + 1, 0);
+            std::copy(begin(), end(), copy.begin());
+            std::fill(copy.begin() + size(), copy.end, v);
+            swap(copy);
+//            resize(size() + 1, v);
+//            assert(valid());
         }
 
         /**
