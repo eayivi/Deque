@@ -827,22 +827,28 @@ class MyDeque {
          * gives the element a MyDeque contains at index
          */
         reference operator [] (size_type index) {
-//            // <your code>
+            // <your code>
             if (index == 0) {
                 return *_b;
             }
             
             reference result = *_b;
-            
+            if (index >= size()) {
+                throw std::out_of_range("index value exceeds bounds");
+            }
+
+
             if ((_b - _top[_u_top]) + index > BLOCK_WIDTH) {
                 size_type block_jump = ((_b - _top[_u_top]) + index) / BLOCK_WIDTH;
                 pointer temp = _top[_u_top + block_jump];
-                result = *(temp + (BLOCK_WIDTH * block_jump - index));
+                result = *(temp + (_b - _top[_u_top]) + index % BLOCK_WIDTH);                 
             }
+             else if (index ==  BLOCK_WIDTH) {
+                 result = * (_b+ BLOCK_WIDTH-1);
+             }
             else {
-                result = *(_b + index - 1);
+                 result = * (_b + index);
             }
-            
             return result;
         }
 
