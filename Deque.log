@@ -1,0 +1,346 @@
+commit e8b7e794c672eabaa2b08d2e359ab6ff9ea31c5e
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 21:54:46 2013 -0500
+
+    Nevermind this is the final commit. Every test should be working now.
+
+commit d691622ff57c4d2eca455881a0d45c81e672edfa
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 21:52:43 2013 -0500
+
+    This should be our final commit. Thanks for your time.
+
+commit 0d173d04e79d2b7f79a7cfbf8c3df6bb877fee8f
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 21:50:27 2013 -0500
+
+    MyDeque implementation seems to be complete and working at this time. Testing suite seems complete and working. Should address Implementation and Unit Tests Issues.
+
+commit 9125f3b3692723a5fbb6febf0115073499d16bc3
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 21:42:52 2013 -0500
+
+    Almost done with MyDeque implementation. Only functions that are giving problems are [] and at. Will correct them soon. Also, testing suite seems complete and working. Should address Implementation and Unit Tests Issues.
+
+commit 937fe67295ebbca5c6886e3f7e4c946f9efe406e
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 19:19:17 2013 -0500
+
+    Still working through individual functions, narrowing down the list. Testing for completed functions is going fine. Should address the Implementation and Unit Tests Issues.
+
+commit 91fbff0df712b47e6d28ffbfee034a744d619060
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 17:42:43 2013 -0500
+
+    push_back() is now working. Started making the test suite using Google Tests for bonus points. Should address the Unit Tests and Implementation Issues.
+
+commit 1e1b09afc816c7f5a6e0edd70f61412dd7a18489
+Merge: de3daea 76f2f97
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 04:49:23 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+
+commit de3daea02d48dba38b3f3db0c4c7a406f5124770
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 04:49:05 2013 -0500
+
+    Trying to get push_back() to work with nor success. Will try again later. Should address Implementation Issue.
+
+commit 76f2f97f0566f2e9755911c440519c6d9300013e
+Merge: 5ec8e81 80f8b52
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Sat Jul 27 04:11:06 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+
+commit 80f8b52ab67f2f040fcafd1940caf5ecb88afc03
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 04:09:26 2013 -0500
+
+    Still writing MyDeque functions but push_back should work. Should address the Implementation Issue.
+
+commit 5ec8e8195af01f2b903a0c643e589df91647deda
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Sat Jul 27 04:07:33 2013 -0500
+
+    More unit tests
+
+commit 1e1a711f31a05924371289bb7e0d2cff4ccf9862
+Merge: a161965 dec7195
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Sat Jul 27 03:10:58 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+
+commit dec7195c2315499f5a7a96d8013ca263495c2850
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 03:06:16 2013 -0500
+
+    Still working on the functions for MyDeque. Making some real progress toward the end. Should address the Implementation Issue.
+
+commit a16196560d44bf44658df73526d021be9fc9e304
+Merge: d8b1f2b d6e231d
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Sat Jul 27 02:13:16 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+
+commit d8b1f2bcafd2b2f4fe1c4b57438fbeb698ab7911
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Sat Jul 27 02:11:28 2013 -0500
+
+    added unit tests
+
+commit d6e231d7f3b9049ba12ab8851f129c1ea7b903b4
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sat Jul 27 02:09:07 2013 -0500
+
+    Continuing to define functions for MyDeque. Just finished defining pop_front(). Should address Implementation Issue.
+
+commit b2511bc1db07cad594be9402e833ff4c9d6bd0b2
+Merge: e330ee3 889df3a
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Fri Jul 26 21:53:45 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+
+commit 889df3a8e6dc5d8d5c8aa0dbd4881ef2fdedcb0f
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Fri Jul 26 21:53:15 2013 -0500
+
+    added more test cases
+
+commit e330ee388e180abaada5b8c6115ffeb477b89966
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Fri Jul 26 21:53:06 2013 -0500
+
+    Still working on indvidual functions. Should address the Implementation Issue.
+
+commit e2a08cf76e2c95f5c7057902665dcf60f5f1c5c2
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Fri Jul 26 21:07:06 2013 -0500
+
+    added unit tests to gtest
+
+commit 38ac2a8a85fd29dc7908ff51b36746229ef6a31f
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Fri Jul 26 21:02:55 2013 -0500
+
+    Constructors are working fine for now. Will have to work on individual tests to see if they are working. Should address Implementation Issue.
+
+commit 237765f99b27ec79a84d6a54e4464eca2c215bd7
+Merge: f9d1048 c4854d1
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 21:54:23 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+
+commit f9d1048f26f955d10b462237df6756805c060879
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 21:52:33 2013 -0500
+
+    Still fine tuning the MyDeque implementation while testing individual functions. Should address the Unit Tests and Implementation Issues.
+
+commit c4854d1ea12fd81921b739a9d969975bbf2d139a
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Thu Jul 25 19:42:18 2013 -0500
+
+    Create gTestDeque.c++
+
+commit 9890f93bda82de28ef931130c6da4a0504a4953c
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 19:32:18 2013 -0500
+
+    Adding an initial skeleton of testing suite. Will add more later. Should address the Unit Tests Issues.
+
+commit d26f7eae3a602ff67ea7c27f286905a62a9f0f46
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 19:24:03 2013 -0500
+
+    Completed most of the implementation for MyDeque but, unfornately, resize does not work on lab computers. Will have to debug and add tests soon. Should address the Implementation Issues.
+
+commit 443ef457d960673fce1ce9c50ba0636f7415dfc0
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 08:49:15 2013 -0500
+
+    Some of the functions still need work, unfortunately. Should address the Implementation Issue.
+
+commit a82787cf137c8cf5dbbcf78b0c860fa549c7b221
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 08:23:38 2013 -0500
+
+    Completed more functions for myDeque. All that's left to implement is push and pop functions. Will create tests for functions later. Should address the Implementation Issue.
+
+commit 4b9689da8fec665f93bc7d3763781bb4ca252469
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 07:06:14 2013 -0500
+
+    Completed more functions for MyDeque. Some constructors are still giving problems, but otherwise everything is working fine. Will need to make more tests for each new function. Should address the Implementation Issue.
+
+commit 87ad6c3b9a1b7653e47ce59b338992f49a72b947
+Merge: 4b65fd0 e22ca08
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 03:27:32 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+    
+    Conflicts:
+    	Deque.h
+
+commit 4b65fd0cdfdddd9c5f8042bce326a7cb00b37620
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 03:25:20 2013 -0500
+
+    Restoring files to repository.
+
+commit e22ca086b8f00da9dbddbd2f34d7bf093e97f640
+Author: SUMDude21 <roosterg21@gmail.com>
+Date:   Thu Jul 25 03:03:33 2013 -0500
+
+    Update Deque.h
+
+commit d87bca824a160335f51e85ae93fb09bc69a8e4a0
+Merge: d235ccd 9e491f1
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 02:53:58 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+    
+    Conflicts:
+    	gTestDeque.c++
+
+commit d235ccd5a27645bbaa17821ea10df46713b2867b
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 02:49:59 2013 -0500
+
+    Puahing to make sure both teammates have the same files.
+
+commit 505c8230bf904739ebc98c5d729681336804f233
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 02:47:48 2013 -0500
+
+    Iterators appear to be done and working. Need to work on the copy constructor. Should address the Implementation Issue.
+
+commit 9e491f11bf76c64cf48e4334fe8ebba711aa78a2
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Thu Jul 25 02:30:50 2013 -0500
+
+    renamed gtest file
+
+commit 49240632973b73eb2899801609ab3d73f1d1cad8
+Merge: 55ffcb4 ecbf38e
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Thu Jul 25 01:04:41 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+
+commit 55ffcb45238dee6b8b63c975d0f75dcf522a34c2
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Thu Jul 25 01:03:01 2013 -0500
+
+    Improved testing suite
+
+commit ecbf38ebca5f5840633dca8a6a7471eb59598724
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Thu Jul 25 01:02:23 2013 -0500
+
+    Finished writing the iterator for MyDeque. Needs some fine-tuning before ready. Should address the Implementation Issue.
+
+commit 0af5077584302e4060ae84e5f21e23b879172d2f
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Wed Jul 24 22:53:01 2013 -0500
+
+    Started work on MyDeque iterators. Should address Implementation Issues.
+
+commit fe0ab28a76c0abdb8b29abffbeaa398c41985fd4
+Merge: 56eee23 b9d77d8
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Wed Jul 24 21:34:19 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+
+commit 56eee23900df29e953b7a9896d192bb8ce996d5d
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Wed Jul 24 21:29:26 2013 -0500
+
+    Fine tuning Deque.h for corner cases. Should address Implementation Issues.
+
+commit b9d77d86f899b40a4653692d03814a5c7898a2d4
+Merge: 864c17f 7e177d0
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Wed Jul 24 21:27:06 2013 -0500
+
+    Merge branch 'master' of https://github.com/SUMDude21/cs378-deque
+
+commit 864c17f9455d02734c3dddb1fe082eda205c9d81
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Wed Jul 24 21:27:03 2013 -0500
+
+    Skeleton TestDeque.c++ is good to go: Deque passes, MyDeque fails
+
+commit 7e177d038d684c17963c5900af543774b6b4e8c1
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Wed Jul 24 19:50:19 2013 -0500
+
+    Update cpp_test_deque
+
+commit 7f49937ab1c6ab99d0ce435ea5a73c9615591e6b
+Author: eayivi <enam.ayivi@utexas.edu>
+Date:   Wed Jul 24 19:49:58 2013 -0500
+
+    old cppunit test
+
+commit a3e3f36a4adbdd55f0ca19276eaefb3e11708254
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Wed Jul 24 19:47:36 2013 -0500
+
+    Added the copy assignment operator to the current implementation. Should address the Implementation Issue.
+
+commit 81ea6b243e637ff26953ee4f2ad7443247ebb999
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Wed Jul 24 18:56:14 2013 -0500
+
+    Finished the constructor that was left undone yesterday along with some functions. Will make tests for them later. Should address the Implementation Issue.
+
+commit 4f1a102d5acbc480da3841c0675f0158296c958b
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Tue Jul 23 23:28:14 2013 -0500
+
+    Completed some of the functions for Deque.h. Still need to finish constructors for MyDeque. Should address the Implementation Issue.
+
+commit b96b8c4960106c1393376070634c2ff861e5ce58
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Tue Jul 23 21:19:22 2013 -0500
+
+    Fine tuned the tests so they don't result in compile time errors. Should address the Unit Tests Issues.
+
+commit 6097501da559677a38c32eca8f77e1ae709bef81
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Tue Jul 23 19:06:15 2013 -0500
+
+    Added tests for various functions to the suite. Should help in actually implementing the functions themselves. Addresses the Unit Tests Issue.
+
+commit c6c872c8443363a754525dd84285ffd8c3ebb3b2
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Mon Jul 22 01:30:09 2013 -0500
+
+    Completed the const_iterator class for MyDeque. Will have to add tests for individual functions later. Should address the Implementation Issue.
+
+commit 3d005cec221c9f21ffdebe15f72eab18747dd419
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sun Jul 21 23:42:05 2013 -0500
+
+    Completed the iterator class for MyDeque. Will have to add test for individual functions later. Should address the Implementation Issue.
+
+commit 8c781de654de8398b3d2ce5cc67a746a57e25532
+Author: Rene Garcia <roosterg21@gmail.com>
+Date:   Sun Jul 21 18:07:13 2013 -0500
+
+    Adding the skeleton files provided by Prof. Downing. They compile and run for the time being. Should address the Initial Files Issue.
+
+commit 90b6f9a54737fa176fff6d7f52a408c47efe64e4
+Author: SUMDude21 <roosterg21@gmail.com>
+Date:   Tue Jul 16 13:23:53 2013 -0700
+
+    Initial commit
