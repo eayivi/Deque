@@ -1,7 +1,7 @@
 all:
 	make Deque.zip
 
-clean:
+clean: 
 	rm -f Deque.log
 	rm -f Deque.zip
 	rm -f TestDeque
