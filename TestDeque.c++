@@ -711,12 +711,10 @@ TEST(Push_Back, Test3) {
  }
 
  TEST(Access_element, Test2) {
-   MyDeque<int> x (25, 5);
-   x.push_back(9);
+   MyDeque<int> x (10, 5);
    for(int i = 0; i < (int) x.size(); ++i) {
        ASSERT_EQ(x[i], 5);
    }
-   ASSERT_EQ(x[24], 5);
  }
 
  TEST(Access_element, Test3) {
@@ -744,12 +742,10 @@ TEST(Push_Back, Test3) {
  }
 
  TEST(Access_element_at, Test2) {
-   MyDeque<int> x (26, 5);
-   x.push_back(9);
-   for(int i = 0; i < (int)x.size()-1; i++) {
+   MyDeque<int> x (10, 5);
+   for(int i = 0; i < (int)x.size(); i++) {
        ASSERT_EQ(x.at(i), 5);
    }
-   ASSERT_EQ(x[x.size()-1], 9);
  }
 
  TEST(Access_element_at, Test3) {

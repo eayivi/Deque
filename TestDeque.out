@@ -1,0 +1,199 @@
+Running main() from gtest_main.cc
+[==========] Running 68 tests from 19 test cases.
+[----------] Global test environment set-up.
+[----------] 3 tests from Constructor
+[ RUN      ] Constructor.default_case
+[       OK ] Constructor.default_case (20 ms)
+[ RUN      ] Constructor.fill_constructor_1
+[       OK ] Constructor.fill_constructor_1 (16 ms)
+[ RUN      ] Constructor.fill_constructor_2
+[       OK ] Constructor.fill_constructor_2 (7 ms)
+[----------] 3 tests from Constructor (53 ms total)
+
+[----------] 3 tests from CopyConstructor
+[ RUN      ] CopyConstructor.test_1
+[       OK ] CopyConstructor.test_1 (9 ms)
+[ RUN      ] CopyConstructor.test_2
+[       OK ] CopyConstructor.test_2 (4 ms)
+[ RUN      ] CopyConstructor.Test3
+[       OK ] CopyConstructor.Test3 (3 ms)
+[----------] 3 tests from CopyConstructor (16 ms total)
+
+[----------] 5 tests from CopyAssignment
+[ RUN      ] CopyAssignment.Assign1
+[       OK ] CopyAssignment.Assign1 (10 ms)
+[ RUN      ] CopyAssignment.Assign2
+[       OK ] CopyAssignment.Assign2 (14 ms)
+[ RUN      ] CopyAssignment.Assign3
+[       OK ] CopyAssignment.Assign3 (4 ms)
+[ RUN      ] CopyAssignment.Assign4
+[       OK ] CopyAssignment.Assign4 (5 ms)
+[ RUN      ] CopyAssignment.Assign5
+[       OK ] CopyAssignment.Assign5 (4 ms)
+[----------] 5 tests from CopyAssignment (39 ms total)
+
+[----------] 5 tests from Iterator
+[ RUN      ] Iterator.1Row
+[       OK ] Iterator.1Row (8 ms)
+[ RUN      ] Iterator.MultiRow
+[       OK ] Iterator.MultiRow (6 ms)
+[ RUN      ] Iterator.Back1Row
+[       OK ] Iterator.Back1Row (6 ms)
+[ RUN      ] Iterator.BackMultiRow2
+[       OK ] Iterator.BackMultiRow2 (5 ms)
+[ RUN      ] Iterator.1RowConst
+[       OK ] Iterator.1RowConst (6 ms)
+[----------] 5 tests from Iterator (33 ms total)
+
+[----------] 5 tests from Resize
+[ RUN      ] Resize.Test1
+[       OK ] Resize.Test1 (5 ms)
+[ RUN      ] Resize.Test2
+[       OK ] Resize.Test2 (5 ms)
+[ RUN      ] Resize.Test3
+[       OK ] Resize.Test3 (7 ms)
+[ RUN      ] Resize.Test4
+[       OK ] Resize.Test4 (6 ms)
+[ RUN      ] Resize.Test5
+[       OK ] Resize.Test5 (5 ms)
+[----------] 5 tests from Resize (28 ms total)
+
+[----------] 3 tests from Push_Back
+[ RUN      ] Push_Back.Test1
+[       OK ] Push_Back.Test1 (6 ms)
+[ RUN      ] Push_Back.Test2
+[       OK ] Push_Back.Test2 (10 ms)
+[ RUN      ] Push_Back.Test3
+[       OK ] Push_Back.Test3 (3 ms)
+[----------] 3 tests from Push_Back (19 ms total)
+
+[----------] 4 tests from Clear
+[ RUN      ] Clear.Test1
+[       OK ] Clear.Test1 (2 ms)
+[ RUN      ] Clear.Test2
+[       OK ] Clear.Test2 (3 ms)
+[ RUN      ] Clear.Test3
+[       OK ] Clear.Test3 (2 ms)
+[ RUN      ] Clear.Test4
+[       OK ] Clear.Test4 (5 ms)
+[----------] 4 tests from Clear (13 ms total)
+
+[----------] 3 tests from Back_Front
+[ RUN      ] Back_Front.Test1
+[       OK ] Back_Front.Test1 (4 ms)
+[ RUN      ] Back_Front.Test2
+[       OK ] Back_Front.Test2 (3 ms)
+[ RUN      ] Back_Front.Test3
+[       OK ] Back_Front.Test3 (6 ms)
+[----------] 3 tests from Back_Front (14 ms total)
+
+[----------] 4 tests from Pop_Back
+[ RUN      ] Pop_Back.Test1
+[       OK ] Pop_Back.Test1 (3 ms)
+[ RUN      ] Pop_Back.Test2
+[       OK ] Pop_Back.Test2 (2 ms)
+[ RUN      ] Pop_Back.Test3
+[       OK ] Pop_Back.Test3 (4 ms)
+[ RUN      ] Pop_Back.Test4
+[       OK ] Pop_Back.Test4 (7 ms)
+[----------] 4 tests from Pop_Back (18 ms total)
+
+[----------] 3 tests from Push_Front
+[ RUN      ] Push_Front.Test1
+[       OK ] Push_Front.Test1 (5 ms)
+[ RUN      ] Push_Front.Test2
+[       OK ] Push_Front.Test2 (5 ms)
+[ RUN      ] Push_Front.Test3
+[       OK ] Push_Front.Test3 (5 ms)
+[----------] 3 tests from Push_Front (15 ms total)
+
+[----------] 4 tests from Pop_Front
+[ RUN      ] Pop_Front.Test1
+[       OK ] Pop_Front.Test1 (4 ms)
+[ RUN      ] Pop_Front.Test2
+[       OK ] Pop_Front.Test2 (2 ms)
+[ RUN      ] Pop_Front.Test3
+[       OK ] Pop_Front.Test3 (4 ms)
+[ RUN      ] Pop_Front.Test4
+[       OK ] Pop_Front.Test4 (6 ms)
+[----------] 4 tests from Pop_Front (18 ms total)
+
+[----------] 3 tests from Insert
+[ RUN      ] Insert.Test1
+[       OK ] Insert.Test1 (6 ms)
+[ RUN      ] Insert.Test2
+[       OK ] Insert.Test2 (4 ms)
+[ RUN      ] Insert.Test3
+[       OK ] Insert.Test3 (7 ms)
+[----------] 3 tests from Insert (17 ms total)
+
+[----------] 3 tests from Erase
+[ RUN      ] Erase.Test1
+[       OK ] Erase.Test1 (6 ms)
+[ RUN      ] Erase.Test2
+[       OK ] Erase.Test2 (5 ms)
+[ RUN      ] Erase.Test3
+[       OK ] Erase.Test3 (5 ms)
+[----------] 3 tests from Erase (16 ms total)
+
+[----------] 3 tests from Access_element
+[ RUN      ] Access_element.Test1
+[       OK ] Access_element.Test1 (3 ms)
+[ RUN      ] Access_element.Test2
+[       OK ] Access_element.Test2 (3 ms)
+[ RUN      ] Access_element.Test3
+[       OK ] Access_element.Test3 (3 ms)
+[----------] 3 tests from Access_element (10 ms total)
+
+[----------] 3 tests from Access_element_at
+[ RUN      ] Access_element_at.Test1
+[       OK ] Access_element_at.Test1 (3 ms)
+[ RUN      ] Access_element_at.Test2
+[       OK ] Access_element_at.Test2 (3 ms)
+[ RUN      ] Access_element_at.Test3
+[       OK ] Access_element_at.Test3 (38 ms)
+[----------] 3 tests from Access_element_at (45 ms total)
+
+[----------] 4 tests from Equals
+[ RUN      ] Equals.Test1
+[       OK ] Equals.Test1 (7 ms)
+[ RUN      ] Equals.Test2
+[       OK ] Equals.Test2 (2 ms)
+[ RUN      ] Equals.Test3
+[       OK ] Equals.Test3 (3 ms)
+[ RUN      ] Equals.Test4
+[       OK ] Equals.Test4 (4 ms)
+[----------] 4 tests from Equals (17 ms total)
+
+[----------] 4 tests from Less_than
+[ RUN      ] Less_than.Test1
+[       OK ] Less_than.Test1 (8 ms)
+[ RUN      ] Less_than.Test2
+[       OK ] Less_than.Test2 (4 ms)
+[ RUN      ] Less_than.Test3
+[       OK ] Less_than.Test3 (3 ms)
+[ RUN      ] Less_than.Test4
+[       OK ] Less_than.Test4 (4 ms)
+[----------] 4 tests from Less_than (19 ms total)
+
+[----------] 3 tests from Swap
+[ RUN      ] Swap.Test1
+[       OK ] Swap.Test1 (4 ms)
+[ RUN      ] Swap.Test2
+[       OK ] Swap.Test2 (4 ms)
+[ RUN      ] Swap.Test3
+[       OK ] Swap.Test3 (2 ms)
+[----------] 3 tests from Swap (11 ms total)
+
+[----------] 3 tests from Everything
+[ RUN      ] Everything.Test1
+[       OK ] Everything.Test1 (8 ms)
+[ RUN      ] Everything.Test2
+[       OK ] Everything.Test2 (7 ms)
+[ RUN      ] Everything.Test3
+[       OK ] Everything.Test3 (57 ms)
+[----------] 3 tests from Everything (73 ms total)
+
+[----------] Global test environment tear-down
+[==========] 68 tests from 19 test cases ran. (510 ms total)
+[  PASSED  ] 68 tests.
