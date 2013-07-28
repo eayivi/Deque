@@ -843,7 +843,6 @@ class MyDeque {
                 result = *(_b + index - 1);
             }
             
-            std::cout << "RESULT: " << result << std::endl;
             return result;
         }
 
@@ -990,7 +989,7 @@ class MyDeque {
             }
             
             assert(valid());
-            return iterator(this);
+            return iterator(p);
         }
 
         // -----
@@ -1037,7 +1036,7 @@ class MyDeque {
             }
             
             assert(valid());
-            return iterator();
+            return iterator(p);
         }
 
         // ---
